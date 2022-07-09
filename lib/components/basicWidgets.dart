@@ -29,13 +29,23 @@ class WidgetList {
       child: TextFormField(
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent)
-          ),
-          fillColor: MainTheme.light,
-          filled: true
-        ),
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+            border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent)),
+            fillColor: MainTheme.light,
+            filled: true),
       ),
+    );
+  }
+
+  static Button({required String text, required VoidCallback onPressed}) {
+    return ElevatedButton(
+      onPressed: onPressed, 
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(MainTheme.accent),
+        padding: MaterialStateProperty.all(EdgeInsets.all(12))
+      ),
+      child: Text(text, style: TextStyle(color: MainTheme.primary)),
     );
   }
 }
