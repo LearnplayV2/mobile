@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnplay/components/appBar.dart';
-import 'package:learnplay/components/basicWidgets.dart';
+import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/controller/home_controller.dart';
 
@@ -21,9 +21,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(() {
-      setState(() { });
-    });
+    controller.addListener(() => setState(() { }));
   }
 
   @override
@@ -36,8 +34,12 @@ class _HomeState extends State<Home> {
         key: _formKey,
         child: Column(
           children: [
-            WidgetList.Input(),
-            WidgetList.Input(),
+            WidgetList.Input(
+              hintText: "E-mail",
+            ),
+            WidgetList.Input(
+              hintText: "********"
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Align(

@@ -23,12 +23,16 @@ class WidgetList {
     );
   }
 
-  static Input() {
+  static Input({TextEditingController? controller, String? Function(String?)? validator, String? hintText}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
         style: TextStyle(color: Colors.white),
+        validator: validator,
+        controller: controller,
         decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: TextStyle(color: Colors.white54),
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent)),
