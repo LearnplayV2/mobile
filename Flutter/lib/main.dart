@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnplay/config.dart';
-import 'package:learnplay/modules/Home.dart';
+import 'package:learnplay/modules/home/pages/Home.dart';
+
+import 'bloc/counter_bloc/counter_bloc.dart';
+import 'bloc/store.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +25,7 @@ class MyApp extends StatelessWidget {
             subtitle1: TextStyle(color: Colors.white),
           )),
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Store(child: Home())
     );
   }
 }

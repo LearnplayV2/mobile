@@ -5,20 +5,22 @@ import '../config.dart';
 class WidgetList {
   static DisplayCenter(BuildContext context, {required List<Widget> children}) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-              color: MainTheme.secondary,
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-              padding: EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: children,
-              )),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                color: MainTheme.secondary,
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children,
+                )),
+          ],
+        ),
       ),
     );
   }

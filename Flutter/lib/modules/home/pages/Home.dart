@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learnplay/bloc/counter_bloc/counter_bloc.dart';
+import 'package:learnplay/bloc/counter_bloc/counter_event.dart';
 import 'package:learnplay/components/appBar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
-import 'package:learnplay/controller/home_controller.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -14,15 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final controller = HomeController();
-
-  int _counter() => controller.counter;
-
-  @override
-  void initState() {
-    super.initState();
-    controller.addListener(() => setState(() { }));
-  }
+  final _counterBloc = CounterBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +31,7 @@ class _HomeState extends State<Home> {
             WidgetList.Input(
               hintText: "E-mail",
             ),
-            WidgetList.Input(
-              hintText: "********"
-            ),
+            WidgetList.Input(hintText: "********"),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Align(
@@ -53,7 +45,7 @@ class _HomeState extends State<Home> {
             SizedBox(
                 width: double.infinity,
                 child: WidgetList.Button(
-                  onPressed: () => controller.increment(),
+                  onPressed: () { },
                   text: "Entrar",
                 )),
             Padding(
@@ -65,7 +57,22 @@ class _HomeState extends State<Home> {
                       MainTheme.normalText("Não tem uma conta? "),
                       Text("Cadastre-se",
                           style: TextStyle(color: MainTheme.linkPrimary)),
-                      Text("${_counter()}")
+                      BlocBuilder(
+                        bloc: _counterBloc,
+                        builder: (ctx, state) {
+                          return Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  _counterBloc.add(IncrementCounterEvent());
+                                }, 
+                                child: Text("increment")
+                              ),
+                              Text("${_counterBloc.state.count}", style: TextStyle(color: MainTheme.linkPrimary)),
+                            ],
+                          );
+                        }
+                      )
                     ],
                   )),
             ),

@@ -9,7 +9,9 @@ class MainBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MainTheme.primary,
       appBar: AppBar(
+        backgroundColor: MainTheme.secondary,
         title: Text(title, style: TextStyle(color: MainTheme.accent)),
       ),
       body: child,
