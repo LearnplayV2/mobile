@@ -27,6 +27,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   bloc: ^8.0.3
   equatable: ^2.0.3
+  email_validator: '^1.0.6'
 
 
   # The following adds the Cupertino Icons font to your application.

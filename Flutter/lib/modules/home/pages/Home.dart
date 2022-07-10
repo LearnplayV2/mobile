@@ -1,7 +1,5 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learnplay/bloc/counter_bloc/counter_bloc.dart';
-import 'package:learnplay/bloc/counter_bloc/counter_event.dart';
 import 'package:learnplay/components/appBar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
@@ -16,7 +14,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _counterBloc = CounterBloc();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +29,32 @@ class _HomeState extends State<Home> {
           children: [
             WidgetList.Input(
               hintText: "E-mail",
+              controller: email,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Preencha o champo e-mail";
+                } else if(!EmailValidator.validate(value)) {
+                  return "Preencha um e-mail válido!";
+                }
+                return null;
+              },
             ),
-            WidgetList.Input(hintText: "********"),
+            WidgetList.Input(
+              hintText: "********",
+              obscureText: true,
+              onFieldSubmitted: (value) {
+                _formKey.currentState?.validate();
+              },
+              controller: password,
+              validator: (value) {
+                if(value!.length < 8) {
+                  return "A senha deve ter no mínimo 8 caracteres!";
+                }
+                return null;
+              }
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Align(
@@ -45,7 +68,11 @@ class _HomeState extends State<Home> {
             SizedBox(
                 width: double.infinity,
                 child: WidgetList.Button(
-                  onPressed: () { },
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      print(email.text);
+                    }
+                  },
                   text: "Entrar",
                 )),
             Padding(
@@ -57,22 +84,6 @@ class _HomeState extends State<Home> {
                       MainTheme.normalText("Não tem uma conta? "),
                       Text("Cadastre-se",
                           style: TextStyle(color: MainTheme.linkPrimary)),
-                      BlocBuilder(
-                        bloc: _counterBloc,
-                        builder: (ctx, state) {
-                          return Column(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  _counterBloc.add(IncrementCounterEvent());
-                                }, 
-                                child: Text("increment")
-                              ),
-                              Text("${_counterBloc.state.count}", style: TextStyle(color: MainTheme.linkPrimary)),
-                            ],
-                          );
-                        }
-                      )
                     ],
                   )),
             ),
@@ -81,4 +92,5 @@ class _HomeState extends State<Home> {
       )
     ]));
   }
+  
 }

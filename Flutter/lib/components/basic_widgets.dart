@@ -25,13 +25,17 @@ class WidgetList {
     );
   }
 
-  static Input({TextEditingController? controller, String? Function(String?)? validator, String? hintText}) {
+  static Input({TextEditingController? controller, String? Function(String?)? validator, String? hintText, TextInputType? keyboardType, bool? obscureText, TextInputAction? textInputAction, Function(String value)? onFieldSubmitted}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
+        obscureText: obscureText ?? false,
+        textInputAction: textInputAction ?? TextInputAction.done,
+        keyboardType: keyboardType,
         style: TextStyle(color: Colors.white),
         validator: validator,
         controller: controller,
+        onFieldSubmitted: onFieldSubmitted,
         decoration: InputDecoration(
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.white54),
