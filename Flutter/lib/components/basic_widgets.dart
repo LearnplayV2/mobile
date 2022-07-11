@@ -52,15 +52,15 @@ class WidgetList {
     );
   }
 
-  static Button({required String text, required VoidCallback onPressed}) {
+  static Button({required VoidCallback onPressed, String? text, Widget? content, Color? textColor, Color? backgroundColor}) {
     return ElevatedButton(
       onPressed: onPressed, 
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(MainTheme.accent),
+        backgroundColor: backgroundColor != null ? MaterialStateProperty.all<Color>(backgroundColor) : MaterialStateProperty.all<Color>(MainTheme.accent),
         padding: (Display.isDesktop()) ? MaterialStateProperty.all(EdgeInsets.all(20)) : MaterialStateProperty.all(EdgeInsets.all(12))
       ),
-      child: Text(text, style: TextStyle(
-        color: MainTheme.primary,
+      child: content ?? Text(text!, style: TextStyle(
+        color: textColor ?? MainTheme.primary,
         fontSize: (Platform.isWindows) ? 18 : 16,
       )),
     );

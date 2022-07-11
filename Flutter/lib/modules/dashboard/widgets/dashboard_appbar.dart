@@ -41,8 +41,6 @@ class _DashboardBarState extends State<DashboardBar> {
             SizedBox(height: 30),
             _buildMenuItem(context,
                 title: "Página Inicial", route: RouteEnum.dashboard.name),
-            _builProfileItem(context),
-            _buildLogoutItem(context)
           ],
         ),
       ),
@@ -51,15 +49,20 @@ class _DashboardBarState extends State<DashboardBar> {
         actions: [
           SizedBox(
             width: 30,
-            child: GestureDetector(
-              onTap: () {
-                print("OI");
-              },
-              child: ProfilePicture(
-                name: 'name', 
-                radius: 31, 
-                fontsize: 15,
-              ),
+            child: BlocBuilder<LoginBloc, LoginState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RouteEnum.dashboardProfile.name);
+                  },
+                  child: ProfilePicture(
+                    name: "${state.user?.name}", 
+                    radius: 31, 
+                    img: "${UserService.getProfilePicture(uuid: state.user!.uuid!)}",
+                    fontsize: 15,
+                  ),
+                );
+              }
             ),
           ),
           SizedBox(width: 15)
@@ -67,26 +70,6 @@ class _DashboardBarState extends State<DashboardBar> {
         title: Text(title, style: TextStyle(color: MainTheme.accent)),
       ),
       body: widget.child,
-    );
-  }
-
-  Widget _builProfileItem(BuildContext context) {
-    return ListTile(
-      title: Text("Meu perfil"),
-      onTap: () {
-        Navigator.of(context).pushNamed(RouteEnum.dashboardProfile.name);
-      },
-    );
-  }
-
-  Widget _buildLogoutItem(BuildContext context) {
-    return ListTile(
-      title: Text("Sair"),
-      onTap: () {
-        Storage.remove(Storages.Token);
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
-      },
     );
   }
 
