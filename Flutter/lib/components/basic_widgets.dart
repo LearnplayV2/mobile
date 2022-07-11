@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../config.dart';
@@ -12,7 +14,9 @@ class WidgetList {
           children: [
             Container(
                 color: MainTheme.secondary,
-                width: MediaQuery.of(context).size.width,
+                width: (Display.isDesktop()) ? 
+                MediaQuery.of(context).size.width * .6  : 
+                MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
                 padding: EdgeInsets.all(15),
                 child: Column(
@@ -53,9 +57,12 @@ class WidgetList {
       onPressed: onPressed, 
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(MainTheme.accent),
-        padding: MaterialStateProperty.all(EdgeInsets.all(12))
+        padding: (Display.isDesktop()) ? MaterialStateProperty.all(EdgeInsets.all(20)) : MaterialStateProperty.all(EdgeInsets.all(12))
       ),
-      child: Text(text, style: TextStyle(color: MainTheme.primary)),
+      child: Text(text, style: TextStyle(
+        color: MainTheme.primary,
+        fontSize: (Platform.isWindows) ? 18 : 16,
+      )),
     );
   }
 }

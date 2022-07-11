@@ -17,6 +17,8 @@ class UserService {
       final response = Token.fromJson(request.data);
 
       Storage.save(Storages.Token, value: response.token!);
+
+      print(await Storage.get(Storages.Token));
  
     } on DioError catch(err) {
       throw Exception(err.response);

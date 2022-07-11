@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 const String title = "LearnPlay";
@@ -17,4 +19,16 @@ class MainTheme {
     return Text(text,
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white70));
   }
+}
+
+class Display {
+
+  static bool isDesktop() {
+    return (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
+  }
+
+  static bool isCellphone() {
+    return (Platform.isAndroid || Platform.isIOS);
+  }
+  
 }

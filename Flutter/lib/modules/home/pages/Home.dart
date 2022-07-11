@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:learnplay/components/appBar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
@@ -40,26 +42,25 @@ class _HomeState extends State<Home> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Preencha o champo e-mail";
-                } else if(!EmailValidator.validate(value)) {
+                } else if (!EmailValidator.validate(value)) {
                   return "Preencha um e-mail válido!";
                 }
                 return null;
               },
             ),
             WidgetList.Input(
-              hintText: "********",
-              obscureText: true,
-              onFieldSubmitted: (value) {
-                _formKey.currentState?.validate();
-              },
-              controller: password,
-              validator: (value) {
-                if(value!.length < 8) {
-                  return "A senha deve ter no mínimo 8 caracteres!";
-                }
-                return null;
-              }
-            ),
+                hintText: "********",
+                obscureText: true,
+                onFieldSubmitted: (value) {
+                  _formKey.currentState?.validate();
+                },
+                controller: password,
+                validator: (value) {
+                  if (value!.length < 8) {
+                    return "A senha deve ter no mínimo 8 caracteres!";
+                  }
+                  return null;
+                }),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Align(
@@ -75,14 +76,20 @@ class _HomeState extends State<Home> {
                 child: WidgetList.Button(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-
-                      UserService.login(User(email: email.text, password: password.text))
-                        .catchError((err) {
-                          var error = RequestError.decode(err.toString());
-                          print("erro aqui");
-                          print(error.response?.message);
-                        });
+                      UserService.login(
+                              User(email: email.text, password: password.text))
+                          .catchError((err) {
+                        var error = RequestError.decode(err.toString());
+                      });
                     }
+                        Fluttertoast.showToast(
+                            msg: "TESTE",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                   },
                   text: "Entrar",
                 )),
@@ -103,5 +110,4 @@ class _HomeState extends State<Home> {
       )
     ]));
   }
-  
 }
