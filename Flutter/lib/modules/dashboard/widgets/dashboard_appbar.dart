@@ -25,8 +25,9 @@ class DashboardBar extends StatefulWidget {
 class _DashboardBarState extends State<DashboardBar> {
 
   @override
-  void initialState() {
-    AuthController.userInterceptor(context);
+  void initState() {
+    super.initState();
+    AuthController.userCheck(context);
   }
   
   @override
@@ -47,6 +48,22 @@ class _DashboardBarState extends State<DashboardBar> {
       ),
       appBar: AppBar(
         backgroundColor: MainTheme.secondary,
+        actions: [
+          SizedBox(
+            width: 30,
+            child: GestureDetector(
+              onTap: () {
+                print("OI");
+              },
+              child: ProfilePicture(
+                name: 'name', 
+                radius: 31, 
+                fontsize: 15,
+              ),
+            ),
+          ),
+          SizedBox(width: 15)
+        ],
         title: Text(title, style: TextStyle(color: MainTheme.accent)),
       ),
       body: widget.child,

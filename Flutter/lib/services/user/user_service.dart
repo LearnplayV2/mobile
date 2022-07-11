@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/services/api_config.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/types/requestError.dart';
@@ -12,7 +11,6 @@ import '../../bloc/login_bloc/login_bloc_event.dart';
 import '../../routes.dart';
 
 class UserService {
-  static final LoginBloc _loginBloc = LoginBloc();
 
   static const String _webservice = "$apiUrl/user";
 

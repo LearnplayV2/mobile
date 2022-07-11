@@ -7,7 +7,7 @@ import '../../../routes.dart';
 import '../../../services/user/user_service.dart';
 
 class AuthController {
-  static userInterceptor(BuildContext context) async {
+  static userCheck(BuildContext context) async {
     var user = await UserService.checkUserLoggedIn(context);
     if (user != null) {
       BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: user));
