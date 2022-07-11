@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_event.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
+import 'package:learnplay/modules/dashboard/core/auth_controller.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/services/storage/storage.dart';
@@ -19,17 +20,7 @@ class _DashboardIndexState extends State<DashboardIndex> {
   @override
   void initState() {
     super.initState();
-    userInterceptor();
-  }
-
-  userInterceptor() async {
-    var user = await UserService.checkUserLoggedIn(context);
-    if (user != null) {
-      BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: user));
-    } else {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
-    }
+    AuthController.userInterceptor(context);
   }
 
   @override
