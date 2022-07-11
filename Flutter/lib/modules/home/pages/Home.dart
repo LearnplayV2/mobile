@@ -4,10 +4,13 @@ import 'dart:io';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/components/alert/alerts.dart';
 import 'package:learnplay/components/appBar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
+import 'package:learnplay/routes.dart';
+import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/services/user/user_service.dart';
 import 'package:learnplay/types/requestError.dart';
 import 'package:learnplay/types/user.dart';
@@ -24,6 +27,20 @@ class _HomeState extends State<Home> {
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+
+  LoginBloc _loginBloc = LoginBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    checkIsLoggedIn();
+  }
+
+  checkIsLoggedIn() async {
+    if(await Storage.get(Storages.Token) != null) {
+      Navigator.of(context).pushNamedAndRemoveUntil(RouteEnum.dashboard.name, (route) => false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +96,13 @@ class _HomeState extends State<Home> {
                     if (_formKey.currentState!.validate()) {
                       UserService.login(
                               User(email: email.text, password: password.text))
+                          .then((value) async {
+                            checkIsLoggedIn();
+                          })
                           .catchError((err) {
-                        var error = RequestError.decode(err.toString());
-                        Alerts.error(context, title: "Ocorreu um erro", message: "${error.response?.message ?? 'Ocorreu um erro inesperado'}");
-                        
-                      });
+                            var error = RequestError.decode(err.toString());
+                            Alerts.error(context, title: "Ocorreu um erro", message: "${error.response?.message ?? 'Ocorreu um erro inesperado'}");
+                          });
                     }
                   },
                   text: "Entrar",
