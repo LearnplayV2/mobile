@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:learnplay/components/appBar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
+import 'package:learnplay/services/user/user_service.dart';
+import 'package:learnplay/types/requestError.dart';
+import 'package:learnplay/types/user.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -68,9 +73,15 @@ class _HomeState extends State<Home> {
             SizedBox(
                 width: double.infinity,
                 child: WidgetList.Button(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      print(email.text);
+
+                      UserService.login(User(email: email.text, password: password.text))
+                        .catchError((err) {
+                          var error = RequestError.decode(err.toString());
+                          print("erro aqui");
+                          print(error.response?.message);
+                        });
                     }
                   },
                   text: "Entrar",

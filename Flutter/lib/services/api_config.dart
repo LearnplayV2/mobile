@@ -1,2 +1,2 @@
-const apiUrl = 'http://localhost:3000';
-const socketUrl = 'http://localhost:3001';
+const apiUrl = 'http://192.168.15.7:3000';
+const socketUrl = 'http://192.168.15.7:3001';

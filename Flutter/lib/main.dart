@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnplay/config.dart';
-import 'package:learnplay/modules/home/pages/Home.dart';
+import 'package:learnplay/modules/home/pages/home.dart';
 
 import 'bloc/counter_bloc/counter_bloc.dart';
 import 'bloc/store.dart';
