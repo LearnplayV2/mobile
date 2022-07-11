@@ -11,6 +11,7 @@ import '../../../bloc/login_bloc/login_bloc_event.dart';
 import '../../../config.dart';
 import '../../../services/storage/storage.dart';
 import '../../../services/user/user_service.dart';
+import '../core/auth_controller.dart';
 
 class DashboardBar extends StatefulWidget {
   final Widget child;
@@ -23,7 +24,10 @@ class DashboardBar extends StatefulWidget {
 
 class _DashboardBarState extends State<DashboardBar> {
 
-  final _loginBloc = LoginBloc();
+  @override
+  void initialState() {
+    AuthController.userInterceptor(context);
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -50,15 +54,11 @@ class _DashboardBarState extends State<DashboardBar> {
   }
 
   Widget _builProfileItem(BuildContext context) {
-    return BlocListener(
-      bloc: _loginBloc,
-      listener: (BuildContext context, state) {  },
-      child: ListTile(
-        title: Text("Meu perfil"),
-        onTap: () {
-          Navigator.of(context).pushNamed(RouteEnum.dashboardProfile.name);
-        },
-      ),
+    return ListTile(
+      title: Text("Meu perfil"),
+      onTap: () {
+        Navigator.of(context).pushNamed(RouteEnum.dashboardProfile.name);
+      },
     );
   }
 

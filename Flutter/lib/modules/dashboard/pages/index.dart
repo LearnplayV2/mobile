@@ -17,11 +17,6 @@ class DashboardIndex extends StatefulWidget {
 }
 
 class _DashboardIndexState extends State<DashboardIndex> {
-  @override
-  void initState() {
-    super.initState();
-    AuthController.userInterceptor(context);
-  }
 
   @override
   Widget build(BuildContext context) {
