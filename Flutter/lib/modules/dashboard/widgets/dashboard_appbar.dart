@@ -44,8 +44,6 @@ class _DashboardBarState extends State<DashboardBar> {
       appBar: AppBar(
         backgroundColor: MainTheme.secondary,
         title: Text(title, style: TextStyle(color: MainTheme.accent)),
-        actions: [
-        ],
       ),
       body: widget.child,
     );

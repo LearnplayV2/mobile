@@ -16,16 +16,12 @@ class DashboardProfile extends StatefulWidget {
 
 class _DashboardProfileState extends State<DashboardProfile> {
 
-  final _loginBloc = LoginBloc();
-  
   @override
   Widget build(BuildContext context) {
     return DashboardBar(
       child: BlocBuilder<LoginBloc, LoginState>(
-        bloc: _loginBloc,
         builder: (context, snapshot) {
-          print(_loginBloc.state.user);
-          return Text("Meu ${_loginBloc.state.user?.name}");
+          return Text("Meu ${snapshot.user?.name}");
         }
       ),
     );

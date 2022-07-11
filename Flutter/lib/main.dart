@@ -12,14 +12,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        initialRoute: RouteEnum.main.name,
-        routes: routes,
-        theme: ThemeData(
-            primaryColor: MainTheme.secondary,
-            scaffoldBackgroundColor: MainTheme.primary,
-            textTheme: textThemeDefault()),
-        debugShowCheckedModeBanner: false,
-        home: Store(child: Home()));
+    return Store(
+      child: MaterialApp(
+          initialRoute: RouteEnum.main.name,
+          routes: routes,
+          theme: ThemeData(
+              primaryColor: MainTheme.secondary,
+              scaffoldBackgroundColor: MainTheme.primary,
+              textTheme: textThemeDefault()),
+          debugShowCheckedModeBanner: false,
+          home: Home(),
+      )
+    );
   }
 }

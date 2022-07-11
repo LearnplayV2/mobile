@@ -16,8 +16,6 @@ class DashboardIndex extends StatefulWidget {
 }
 
 class _DashboardIndexState extends State<DashboardIndex> {
-  final LoginBloc _loginBloc = LoginBloc();
-
   @override
   void initState() {
     super.initState();
@@ -27,7 +25,7 @@ class _DashboardIndexState extends State<DashboardIndex> {
   userInterceptor() async {
     var user = await UserService.checkUserLoggedIn(context);
     if (user != null) {
-      _loginBloc.add(SetUserLoggedIn(user: user));
+      BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: user));
     } else {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
@@ -38,9 +36,8 @@ class _DashboardIndexState extends State<DashboardIndex> {
   Widget build(BuildContext context) {
     return DashboardBar(
       child: BlocBuilder<LoginBloc, LoginState>(
-          bloc: _loginBloc,
           builder: (context, snapshot) {
-            return Text("welcome ${_loginBloc.state.user?.name}");
+            return Text("welcome ${snapshot.user?.name}");
           }),
     );
   }
