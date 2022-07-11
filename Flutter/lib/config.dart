@@ -4,6 +4,16 @@ import 'package:flutter/material.dart';
 
 const String title = "LearnPlay";
 
+TextTheme textThemeDefault() {
+  return TextTheme(
+    headline1: TextStyle(color: Colors.white),
+    headline2: TextStyle(color: Colors.white),
+    bodyText2: TextStyle(color: Colors.white),
+    subtitle1: TextStyle(color: Colors.white),
+    bodyText1: TextStyle(color: Colors.white),
+  );
+}
+
 class MainTheme {
   static final Color primary = Color.fromRGBO(18, 18, 20, 1);
   static final Color secondary = Color.fromRGBO(32, 31, 36, 1);
@@ -17,12 +27,12 @@ class MainTheme {
 
   static Text h1(String text) {
     return Text(text,
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white70));
+        style: TextStyle(
+            fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white70));
   }
 }
 
 class Display {
-
   static bool isDesktop() {
     return (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
   }
@@ -30,5 +40,4 @@ class Display {
   static bool isCellphone() {
     return (Platform.isAndroid || Platform.isIOS);
   }
-  
 }

@@ -22,6 +22,9 @@ class DashboardBar extends StatefulWidget {
 }
 
 class _DashboardBarState extends State<DashboardBar> {
+
+  final _loginBloc = LoginBloc();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +52,15 @@ class _DashboardBarState extends State<DashboardBar> {
   }
 
   Widget _builProfileItem(BuildContext context) {
-    return ListTile(
-      title: Text("Meu perfil"),
-      onTap: () {
-        Navigator.of(context).pushNamed(RouteEnum.dashboardProfile.name);
-      },
+    return BlocListener(
+      bloc: _loginBloc,
+      listener: (BuildContext context, state) {  },
+      child: ListTile(
+        title: Text("Meu perfil"),
+        onTap: () {
+          Navigator.of(context).pushNamed(RouteEnum.dashboardProfile.name);
+        },
+      ),
     );
   }
 

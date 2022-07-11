@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(debugLabel: 'form_login');
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();

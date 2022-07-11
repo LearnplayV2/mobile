@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/home/pages/home.dart';
 import 'package:learnplay/routes.dart';
@@ -17,13 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primaryColor: MainTheme.secondary,
             scaffoldBackgroundColor: MainTheme.primary,
-            textTheme: TextTheme(
-              headline1: TextStyle(color: Colors.white),
-              headline2: TextStyle(color: Colors.white),
-              bodyText2: TextStyle(color: Colors.white),
-              subtitle1: TextStyle(color: Colors.white),
-              bodyText1: TextStyle(color: Colors.white),
-            )),
+            textTheme: textThemeDefault()),
         debugShowCheckedModeBanner: false,
         home: Store(child: Home()));
   }
