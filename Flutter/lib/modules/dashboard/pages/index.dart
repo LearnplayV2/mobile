@@ -40,7 +40,7 @@ class _DashboardIndexState extends State<DashboardIndex> {
       child: BlocBuilder<LoginBloc, LoginState>(
           bloc: _loginBloc,
           builder: (context, snapshot) {
-            return Text("welcome ${_loginBloc.state.user?.email}");
+            return Text("welcome ${_loginBloc.state.user?.name}");
           }),
     );
   }

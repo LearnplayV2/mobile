@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'counter_bloc/counter_bloc.dart';
+import 'login_bloc/login_bloc.dart';
 
 class Store extends StatelessWidget {
 
@@ -14,7 +15,8 @@ class Store extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => CounterBloc())
+        BlocProvider(create: (context) => CounterBloc()),
+        BlocProvider(create: (context) => LoginBloc())
       ], 
       child: child
     );
