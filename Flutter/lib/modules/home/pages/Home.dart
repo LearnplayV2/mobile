@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:learnplay/components/alert/alerts.dart';
 import 'package:learnplay/components/appBar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
@@ -80,16 +81,10 @@ class _HomeState extends State<Home> {
                               User(email: email.text, password: password.text))
                           .catchError((err) {
                         var error = RequestError.decode(err.toString());
+                        Alerts.error(context, title: "Ocorreu um erro", message: "${error.response?.message ?? 'Ocorreu um erro inesperado'}");
+                        
                       });
                     }
-                        Fluttertoast.showToast(
-                            msg: "TESTE",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0);
                   },
                   text: "Entrar",
                 )),
