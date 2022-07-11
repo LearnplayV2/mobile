@@ -1,13 +1,14 @@
-class LoginState {
-  bool isLoggedIn;
+import 'package:learnplay/types/user.dart';
 
-  LoginState({required this.isLoggedIn});
+class LoginState {
+  User? user;
+
+  LoginState({this.user});
 
   LoginState copyWith({
-    bool? isLoggedIn,
+    User? user
   }) {
-    return LoginState(
-      isLoggedIn: isLoggedIn ?? this.isLoggedIn,
-    );
+    return LoginState(user: user ?? this.user);
   }
+  
 }

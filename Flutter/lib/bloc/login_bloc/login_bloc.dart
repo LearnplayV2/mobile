@@ -4,15 +4,15 @@ import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   
-  LoginBloc() : super(LoginState(isLoggedIn: false)) {
-    on<SetIsLoggedIn>(_setIsLoggedIn);
+  LoginBloc() : super(LoginState(user: null)) {
+    on<SetUserLoggedIn>(_setUserLoggedIn);
   }
 
-  void _setIsLoggedIn(
-    SetIsLoggedIn event,
+  void _setUserLoggedIn(
+    SetUserLoggedIn event,
     Emitter emit
   ) {
-    emit(state.copyWith(isLoggedIn: event.isLoggedIn));
+    emit(state.copyWith(user: event.user));
   }
   
 }

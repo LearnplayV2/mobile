@@ -1,9 +1,12 @@
+import 'package:learnplay/types/user.dart';
+
 abstract class LoginEvent {
   const LoginEvent();
 }
 
-class SetIsLoggedIn extends LoginEvent {
-  final bool isLoggedIn;
+class SetUserLoggedIn extends LoginEvent {
+  final User user;
 
-  SetIsLoggedIn({required this.isLoggedIn});
+  SetUserLoggedIn({required this.user});
+
 }

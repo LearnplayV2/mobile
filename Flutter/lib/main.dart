@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
               headline2: TextStyle(color: Colors.white),
               bodyText2: TextStyle(color: Colors.white),
               subtitle1: TextStyle(color: Colors.white),
+              bodyText1: TextStyle(color: Colors.white),
             )),
         debugShowCheckedModeBanner: false,
         home: Store(child: Home()));

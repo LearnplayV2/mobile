@@ -5,8 +5,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
+import 'package:learnplay/bloc/login_bloc/login_bloc_event.dart';
 import 'package:learnplay/components/alert/alerts.dart';
-import 'package:learnplay/components/appBar.dart';
+import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/routes.dart';
@@ -27,8 +28,6 @@ class _HomeState extends State<Home> {
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
-
-  LoginBloc _loginBloc = LoginBloc();
 
   @override
   void initState() {

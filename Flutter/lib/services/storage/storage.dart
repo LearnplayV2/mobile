@@ -12,9 +12,14 @@ class Storage {
     prefs.setString(storageType.toString(), value);
   }
 
-  static Future<String> get(Storages storageType) async {
+  static Future<String?> get(Storages storageType) async {
     final prefs = await SharedPreferences.getInstance();
-    return await Future.value(prefs.getString(storageType.toString()));
+    return await Future.value(prefs.getString(storageType.toString())) ?? null;
+  }
+
+  static void remove(Storages storageType) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(storageType.toString());
   }
  
 }
