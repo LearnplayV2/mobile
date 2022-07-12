@@ -116,8 +116,14 @@ class _DashboardBarState extends State<DashboardBar> {
     return SizedBox(
       width: 30,
       child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-        return GestureDetector(
-          onTap: () => Get.off(() => DashboardProfile()),
+        return ElevatedButton(
+          onPressed: () => Get.off(() => DashboardProfile()),
+          style: ElevatedButton.styleFrom(
+            elevation: 0,
+            primary: Colors.transparent,
+            padding: EdgeInsets.zero,
+            shadowColor: Colors.transparent
+          ),
           child: ProfilePicture(
             name: "${state.user?.name ?? ''}",
             radius: 31,
