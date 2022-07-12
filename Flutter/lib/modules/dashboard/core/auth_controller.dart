@@ -10,7 +10,7 @@ class AuthController {
   static userCheck(BuildContext context) async {
     var user = await UserService.checkUserLoggedIn(context);
     if (user != null) {
-      BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: user));
+      Future.delayed(Duration(milliseconds: 2000), () => BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: user)));
     } else {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
