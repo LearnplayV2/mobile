@@ -6,11 +6,10 @@ import 'package:learnplay/modules/home/pages/home.dart';
 
 import 'modules/dashboard/pages/profile.dart';
 
-enum RouteEnum { main, dashboard, dashboardProfile, dashboardNotifications }
+// only main routes
+enum RouteEnum { main, dashboard }
 
 var routes = {
   RouteEnum.main.name: (_) => Home(),
   RouteEnum.dashboard.name: (context) => DashboardIndex(),
-  RouteEnum.dashboardProfile.name: (context) => DashboardProfile(),
-  RouteEnum.dashboardNotifications.name: (context) => DashboardNotifications(),
 };
