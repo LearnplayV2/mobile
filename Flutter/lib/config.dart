@@ -19,6 +19,7 @@ class MainTheme {
   static final Color secondary = Color.fromRGBO(32, 31, 36, 1);
   static final Color accent = Color.fromRGBO(22, 163, 74, 1);
   static final Color light = Color.fromRGBO(39, 39, 42, 1);
+  static final Color lighter = Color.fromARGB(255, 49, 49, 53);
   static final Color linkPrimary = Color.fromRGBO(77, 131, 155, 1);
 
   static Text normalText(String text) {

@@ -14,6 +14,7 @@ import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/modules/dashboard/pages/index.dart';
 import 'package:learnplay/modules/dashboard/pages/notifications.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
+import 'package:learnplay/modules/dashboard/widgets/main_menu.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/types/user.dart';
 
@@ -63,7 +64,12 @@ class _DashboardBarState extends State<DashboardBar> {
                 SizedBox(width: 15)
               ],
             ),
-            body: widget.child);
+            body: Column(
+              children: [
+                MainMenu(),
+                widget.child,
+              ],
+            ));
       }
 
       return MainBar(
