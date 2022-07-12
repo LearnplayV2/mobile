@@ -6,27 +6,17 @@ import '../config.dart';
 
 class WidgetList {
   static DisplayCenter(BuildContext context, {required List<Widget> children}) {
-    return Center(
-      child: SingleChildScrollView(
+    return Container(
+        color: MainTheme.secondary,
+        width: (Display.isDesktop()) ? 
+        MediaQuery.of(context).size.width * .6  : 
+        MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+        padding: EdgeInsets.all(15),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-                color: MainTheme.secondary,
-                width: (Display.isDesktop()) ? 
-                MediaQuery.of(context).size.width * .6  : 
-                MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-                padding: EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: children,
-                )),
-          ],
-        ),
-      ),
-    );
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        ));
   }
 
   static Input({TextEditingController? controller, String? Function(String?)? validator, String? hintText, TextInputType? keyboardType, bool? obscureText, TextInputAction? textInputAction, Function(String value)? onFieldSubmitted}) {

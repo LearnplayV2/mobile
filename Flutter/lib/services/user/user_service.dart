@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
+import 'package:learnplay/modules/dashboard/core/auth_controller.dart';
 import 'package:learnplay/services/api_config.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/types/requestError.dart';
@@ -48,7 +49,7 @@ class UserService {
   }
 
   static logout(BuildContext context) {
-    BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: null));
+    AuthController.setUserLoggedIn(context, user: null);	
     Storage.remove(Storages.Token);
     Navigator.of(context)
         .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);

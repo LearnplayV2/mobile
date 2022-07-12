@@ -15,6 +15,7 @@ import 'package:learnplay/modules/dashboard/pages/index.dart';
 import 'package:learnplay/modules/dashboard/pages/notifications.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
 import 'package:learnplay/modules/dashboard/widgets/main_menu.dart';
+import 'package:learnplay/modules/dashboard/widgets/top_button.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/types/user.dart';
 
@@ -34,10 +35,23 @@ class DashboardBar extends StatefulWidget {
 }
 
 class _DashboardBarState extends State<DashboardBar> {
+  ScrollController _scrollController = ScrollController();
+  bool _activateTopButton = false;
+
   @override
   void initState() {
     super.initState();
     AuthController.userCheck(context);
+    _scrollController.addListener(_scrollListener);
+  }
+
+  _scrollListener() {
+    if (_scrollController.offset >= 50) {
+      _activateTopButton = true;
+    } else {
+      _activateTopButton = false;
+    }
+    setState(() {});
   }
 
   @override
@@ -46,6 +60,7 @@ class _DashboardBarState extends State<DashboardBar> {
       if (state.user != null) {
         return Scaffold(
             backgroundColor: MainTheme.primary,
+            floatingActionButton: (!_activateTopButton) ? null : TopButton(scrollController: _scrollController),
             appBar: AppBar(
               backgroundColor: MainTheme.secondary,
               titleSpacing: 0,
@@ -64,11 +79,14 @@ class _DashboardBarState extends State<DashboardBar> {
                 SizedBox(width: 15)
               ],
             ),
-            body: Column(
-              children: [
-                MainMenu(),
-                widget.child,
-              ],
+            body: SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(
+                children: [
+                  MainMenu(),
+                  widget.child,
+                ],
+              ),
             ));
       }
 
@@ -94,8 +112,9 @@ class _DashboardBarState extends State<DashboardBar> {
   _buildAnimatedLoading() {
     return AnimatedTextKit(
       animatedTexts: [
-        WavyAnimatedText("obtendo dados",
-            textStyle: TextStyle(fontSize: 20), 
+        WavyAnimatedText(
+          "obtendo dados",
+          textStyle: TextStyle(fontSize: 20),
         ),
       ],
       isRepeatingAnimation: true,
@@ -119,11 +138,10 @@ class _DashboardBarState extends State<DashboardBar> {
         return ElevatedButton(
           onPressed: () => Get.off(() => DashboardProfile()),
           style: ElevatedButton.styleFrom(
-            elevation: 0,
-            primary: Colors.transparent,
-            padding: EdgeInsets.zero,
-            shadowColor: Colors.transparent
-          ),
+              elevation: 0,
+              primary: Colors.transparent,
+              padding: EdgeInsets.zero,
+              shadowColor: Colors.transparent),
           child: ProfilePicture(
             name: "${state.user?.name ?? ''}",
             radius: 31,
@@ -135,5 +153,4 @@ class _DashboardBarState extends State<DashboardBar> {
       }),
     );
   }
-
 }

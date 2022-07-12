@@ -11,7 +11,6 @@ import 'package:learnplay/components/alert/alerts.dart';
 import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
-import 'package:learnplay/modules/home/pages/register.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/services/user/user_service.dart';
@@ -50,7 +49,12 @@ class _HomeState extends State<Home> {
     return MainBar(
         child: SingleChildScrollView(
       child: Column(
-        children: [_buildPresentation(), SizedBox(height: 50), _buildLogin(), SizedBox(height: 50)],
+        children: [
+          _buildPresentation(),
+          SizedBox(height: 50),
+          _buildLogin(),
+          SizedBox(height: 50)
+        ],
       ),
     ));
   }
@@ -65,8 +69,11 @@ class _HomeState extends State<Home> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MainTheme.h1("A plataforma do ", size: (Display.isDesktop()) ? 30 : 20),
-                MainTheme.h1("Conhecimento ", color: MainTheme.accent, size: (Display.isDesktop()) ? 30 : 20),
+                MainTheme.h1("A plataforma do ",
+                    size: (Display.isDesktop()) ? 30 : 20),
+                MainTheme.h1("Conhecimento ",
+                    color: MainTheme.accent,
+                    size: (Display.isDesktop()) ? 30 : 20),
               ],
             ),
           ),
@@ -78,9 +85,12 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: 30),
           Container(
-            margin: (Display.isDesktop()) ? EdgeInsets.symmetric(horizontal: 8) : EdgeInsets.symmetric(horizontal: 30),
-            child: Text("Somos uma comunidade que compartilha conhecimento: acesse grupos de estudo, compartilhe artigos e aulas.\nNão fique de fora!",  style: TextStyle(fontSize: (Display.isDesktop()) ? 22 : 14))
-          )
+              margin: (Display.isDesktop())
+                  ? EdgeInsets.symmetric(horizontal: 8)
+                  : EdgeInsets.symmetric(horizontal: 30),
+              child: Text(
+                  "Somos uma comunidade que compartilha conhecimento: acesse grupos de estudo, compartilhe artigos e aulas.\nNão fique de fora!",
+                  style: TextStyle(fontSize: (Display.isDesktop()) ? 22 : 14)))
         ],
       ),
     );
@@ -127,13 +137,6 @@ class _HomeState extends State<Home> {
                     }
                     return null;
                   }),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Esqueci minha senha",
-                        style: TextStyle(color: MainTheme.linkPrimary))),
-              ),
               SizedBox(
                 height: 20,
               ),
@@ -157,24 +160,6 @@ class _HomeState extends State<Home> {
                     },
                     text: "Entrar",
                   )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Row(
-                      children: [
-                        MainTheme.normalText("Não tem uma conta? "),
-                        GestureDetector(
-                          onTap: () => Get.to(() => RegisterPage()),
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: Text("Cadastre-se",
-                                style: TextStyle(color: MainTheme.linkPrimary)),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
             ],
           ),
         )
