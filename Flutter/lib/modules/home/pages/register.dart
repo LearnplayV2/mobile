@@ -106,8 +106,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         MainTheme.normalText("Já possui uma conta? "),
                          GestureDetector(
                           onTap: () => Get.to(() => Home()),
-                          child: Text("Faça login",
-                              style: TextStyle(color: MainTheme.linkPrimary)),
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Text("Faça login",
+                                style: TextStyle(color: MainTheme.linkPrimary)),
+                          ),
                         ),
                       ],
                     )),

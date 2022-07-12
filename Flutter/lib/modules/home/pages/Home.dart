@@ -166,8 +166,11 @@ class _HomeState extends State<Home> {
                         MainTheme.normalText("Não tem uma conta? "),
                         GestureDetector(
                           onTap: () => Get.to(() => RegisterPage()),
-                          child: Text("Cadastre-se",
-                              style: TextStyle(color: MainTheme.linkPrimary)),
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Text("Cadastre-se",
+                                style: TextStyle(color: MainTheme.linkPrimary)),
+                          ),
                         ),
                       ],
                     )),
