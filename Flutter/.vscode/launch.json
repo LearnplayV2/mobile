@@ -21,6 +21,6 @@
             "args": [
                 "--no-sound-null-safety",
             ]
-        },
+        }
     ]
 }

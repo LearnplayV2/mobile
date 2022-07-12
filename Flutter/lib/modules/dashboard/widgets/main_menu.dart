@@ -54,7 +54,7 @@ class MainMenu extends StatelessWidget {
             children: [
               Text(text,
                   style:
-                      TextStyle(fontSize: (Display.isCellphone()) ? 15 : 18)),
+                      TextStyle(fontSize: (Display.isCellphone()) ? 15 : 18, color: MainTheme.white)),
             ],
           ),
         ),

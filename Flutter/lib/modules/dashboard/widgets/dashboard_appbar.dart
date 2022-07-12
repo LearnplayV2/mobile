@@ -68,7 +68,7 @@ class _DashboardBarState extends State<DashboardBar> {
                 children: [
                   IconButton(
                       onPressed: () => Get.off(() => DashboardIndex()),
-                      icon: Icon(Icons.home)),
+                      icon: Icon(Icons.home, color: MainTheme.white)),
                   SizedBox(width: 15),
                   Text(title, style: TextStyle(color: MainTheme.accent)),
                 ],
@@ -128,7 +128,7 @@ class _DashboardBarState extends State<DashboardBar> {
   _buildNotificationCenter() {
     return IconButton(
         onPressed: () => Get.off(() => DashboardNotifications()),
-        icon: Icon(Icons.notifications_none));
+        icon: Icon(Icons.notifications_none, color: MainTheme.white));
   }
 
   _buildProfilePicture() {

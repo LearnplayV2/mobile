@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: RouteEnum.main.name,
       routes: routes,
       theme: ThemeData(
+        iconTheme: IconThemeData(color: MainTheme.white),
         primaryColor: MainTheme.secondary,
         scaffoldBackgroundColor: MainTheme.primary,
         textTheme: textThemeDefault(),

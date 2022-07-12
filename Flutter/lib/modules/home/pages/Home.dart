@@ -96,6 +96,21 @@ class _HomeState extends State<Home> {
     );
   }
 
+  void _submitLogin() async {
+    if (_formKey.currentState!.validate()) {
+      UserService.login(User(email: email.text, password: password.text))
+          .then((value) async {
+        checkIsLoggedIn();
+      }).catchError((err) {
+        var error = RequestError.decode(err.toString());
+        Alerts.error(context,
+            title: "Ocorreu um erro",
+            message:
+                "${error.response?.message ?? 'Ocorreu um erro inesperado'}");
+      });
+    }
+  }
+
   _buildLogin() {
     return Container(
       color: MainTheme.secondary,
@@ -127,9 +142,7 @@ class _HomeState extends State<Home> {
               WidgetList.Input(
                   hintText: "********",
                   obscureText: true,
-                  onFieldSubmitted: (value) {
-                    _formKey.currentState?.validate();
-                  },
+                  onFieldSubmitted: (value) => _submitLogin(),
                   controller: password,
                   validator: (value) {
                     if (value!.length < 8) {
@@ -143,21 +156,7 @@ class _HomeState extends State<Home> {
               SizedBox(
                   width: double.infinity,
                   child: WidgetList.Button(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        UserService.login(User(
-                                email: email.text, password: password.text))
-                            .then((value) async {
-                          checkIsLoggedIn();
-                        }).catchError((err) {
-                          var error = RequestError.decode(err.toString());
-                          Alerts.error(context,
-                              title: "Ocorreu um erro",
-                              message:
-                                  "${error.response?.message ?? 'Ocorreu um erro inesperado'}");
-                        });
-                      }
-                    },
+                    onPressed: () => _submitLogin(),
                     text: "Entrar",
                   )),
             ],
