@@ -15,7 +15,7 @@ class MainBar extends StatelessWidget {
       backgroundColor: MainTheme.primary,
       appBar: AppBar(
         backgroundColor: MainTheme.secondary,
-        title: Text(title, style: TextStyle(color: MainTheme.accent)),
+        title: Center(child: Text(title, style: TextStyle(color: MainTheme.accent))),
       ),
       body: child,
     );

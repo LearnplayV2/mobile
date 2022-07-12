@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/home/pages/home.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
               textTheme: textThemeDefault()),
           debugShowCheckedModeBanner: false,
           home: Home(),
+          builder: EasyLoading.init(),
       )
     );
   }
