@@ -4,12 +4,14 @@ import 'dart:io';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_event.dart';
 import 'package:learnplay/components/alert/alerts.dart';
 import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
+import 'package:learnplay/modules/home/pages/register.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/services/user/user_service.dart';
@@ -162,8 +164,11 @@ class _HomeState extends State<Home> {
                     child: Row(
                       children: [
                         MainTheme.normalText("Não tem uma conta? "),
-                        Text("Cadastre-se",
-                            style: TextStyle(color: MainTheme.linkPrimary)),
+                        GestureDetector(
+                          onTap: () => Get.to(() => RegisterPage()),
+                          child: Text("Cadastre-se",
+                              style: TextStyle(color: MainTheme.linkPrimary)),
+                        ),
                       ],
                     )),
               ),

@@ -17,7 +17,7 @@
             "name": "Mobile",
             "request": "launch",
             "type": "dart",
-            "deviceId": "RX8N8023CMT",
+            "deviceId": "192.168.15.3:5555",
             "args": [
                 "--no-sound-null-safety",
             ]
