@@ -6,10 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/components/main_appbar.dart';
+import 'package:learnplay/modules/dashboard/pages/index.dart';
+import 'package:learnplay/modules/dashboard/pages/notifications.dart';
+import 'package:learnplay/modules/dashboard/pages/profile.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/types/user.dart';
 
@@ -47,9 +51,7 @@ class _DashboardBarState extends State<DashboardBar> {
               title: Row(
                 children: [
                   IconButton(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamedAndRemoveUntil(
-                              RouteEnum.dashboard.name, (route) => false),
+                      onPressed: () => Get.off(() => DashboardIndex()),
                       icon: Icon(Icons.home)),
                   SizedBox(width: 15),
                   Text(title, style: TextStyle(color: MainTheme.accent)),
@@ -100,8 +102,7 @@ class _DashboardBarState extends State<DashboardBar> {
 
   _buildNotificationCenter() {
     return IconButton(
-        onPressed: () => Navigator.pushNamedAndRemoveUntil(
-            context, RouteEnum.dashboardNotifications.name, (route) => false),
+        onPressed: () => Get.off(() => DashboardNotifications()),
         icon: Icon(Icons.notifications_none));
   }
 
@@ -110,8 +111,7 @@ class _DashboardBarState extends State<DashboardBar> {
       width: 30,
       child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
         return GestureDetector(
-          onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-              RouteEnum.dashboardProfile.name, (route) => false),
+          onTap: () => Get.off(() => DashboardProfile()),
           child: ProfilePicture(
             name: "${state.user?.name ?? ''}",
             radius: 31,
@@ -124,13 +124,4 @@ class _DashboardBarState extends State<DashboardBar> {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context,
-      {required String title, required String route}) {
-    return ListTile(
-      title: Text(title),
-      onTap: () {
-        Navigator.of(context).pushNamed(route);
-      },
-    );
-  }
 }

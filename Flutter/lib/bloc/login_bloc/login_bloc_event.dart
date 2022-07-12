@@ -5,7 +5,7 @@ abstract class LoginEvent {
 }
 
 class SetUserLoggedIn extends LoginEvent {
-  final User user;
+  final User? user;
 
   SetUserLoggedIn({required this.user});
 
