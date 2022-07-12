@@ -25,10 +25,10 @@ class MainTheme {
     return Text(text, style: TextStyle(color: Colors.white70));
   }
 
-  static Text h1(String text, {Color? color}) {
+  static Text h1(String text, {Color? color, double? size}) {
     return Text(text,
         style: TextStyle(
-            fontSize: 24, fontWeight: FontWeight.bold, color: color ?? Colors.white70));
+            fontSize: size ?? 24, fontWeight: FontWeight.bold, color: color ?? Colors.white70));
   }
 
 }

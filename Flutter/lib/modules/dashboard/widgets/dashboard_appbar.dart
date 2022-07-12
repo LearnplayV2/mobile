@@ -6,6 +6,7 @@ import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/routes.dart';
+import 'package:learnplay/types/user.dart';
 
 import '../../../bloc/login_bloc/login_bloc_event.dart';
 import '../../../config.dart';
@@ -23,53 +24,66 @@ class DashboardBar extends StatefulWidget {
 }
 
 class _DashboardBarState extends State<DashboardBar> {
-
   @override
   void initState() {
     super.initState();
     AuthController.userCheck(context);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MainTheme.primary,
-      drawer: Drawer(
-        backgroundColor: MainTheme.secondary,
-        child: ListView(
-          children: [
-            SizedBox(height: 30),
-            _buildMenuItem(context,
-                title: "Página Inicial", route: RouteEnum.dashboard.name),
-          ],
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: MainTheme.secondary,
+        titleSpacing: 0,
+        title: Row(
+          children: [
+            IconButton(onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(RouteEnum.dashboard.name, (route) => false), icon: Icon(Icons.home)),
+            SizedBox(width: 15),
+            Text(title, style: TextStyle(color: MainTheme.accent)),
+          ],
+        ),
         actions: [
-          SizedBox(
-            width: 30,
-            child: BlocBuilder<LoginBloc, LoginState>(
-              builder: (context, state) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(RouteEnum.dashboardProfile.name);
-                  },
-                  child: ProfilePicture(
-                    name: "${state.user?.name}", 
-                    radius: 31, 
-                    img: "${UserService.getProfilePicture(uuid: state.user!.uuid!)}",
-                    fontsize: 15,
-                  ),
-                );
-              }
-            ),
-          ),
+          ..._spacing(_buildNotificationCenter()), 
+          _buildProfilePicture(), 
           SizedBox(width: 15)
         ],
-        title: Text(title, style: TextStyle(color: MainTheme.accent)),
       ),
       body: widget.child,
+    );
+  }
+
+  _spacing(Widget widget) {
+    return [
+      widget,
+      SizedBox(width: 8)
+    ];
+  }
+
+  _buildNotificationCenter() {
+    return IconButton(
+      onPressed: () => Navigator.pushNamedAndRemoveUntil(context, RouteEnum.dashboardNotifications.name, (route) => false), 
+      icon: Icon(Icons.notifications_none)
+    );
+  }
+
+  _buildProfilePicture() {
+    return SizedBox(
+      width: 30,
+      child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+        return GestureDetector(
+          onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+              RouteEnum.dashboardProfile.name, (route) => false),
+          child: ProfilePicture(
+            name: "${state.user?.name ?? ''}",
+            radius: 31,
+            img:
+                "${UserService.getProfilePicture(uuid: state.user?.uuid ?? 'assets/default-avatar.jpg')}",
+            fontsize: 15,
+          ),
+        );
+      }),
     );
   }
 

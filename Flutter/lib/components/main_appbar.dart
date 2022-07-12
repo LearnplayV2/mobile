@@ -9,7 +9,9 @@ class MainBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return (Display.isDesktop()) ? Scaffold(
+      body: child,
+    ) : Scaffold(
       backgroundColor: MainTheme.primary,
       appBar: AppBar(
         backgroundColor: MainTheme.secondary,
