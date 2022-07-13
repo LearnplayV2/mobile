@@ -11,9 +11,11 @@ import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/components/main_appbar.dart';
+import 'package:learnplay/controller/loading_controller.dart';
 import 'package:learnplay/modules/dashboard/pages/index.dart';
 import 'package:learnplay/modules/dashboard/pages/notifications.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
+import 'package:learnplay/modules/dashboard/widgets/load_content.dart';
 import 'package:learnplay/modules/dashboard/widgets/main_menu.dart';
 import 'package:learnplay/modules/dashboard/widgets/top_button.dart';
 import 'package:learnplay/routes.dart';
@@ -58,36 +60,43 @@ class _DashboardBarState extends State<DashboardBar> {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       if (state.user != null) {
-        return Scaffold(
-            backgroundColor: MainTheme.primary,
-            floatingActionButton: (!_activateTopButton) ? null : TopButton(scrollController: _scrollController),
-            appBar: AppBar(
-              backgroundColor: MainTheme.secondary,
-              titleSpacing: 0,
-              title: Row(
-                children: [
-                  IconButton(
-                      onPressed: () => Get.off(() => DashboardIndex()),
-                      icon: Icon(Icons.home, color: MainTheme.white)),
-                  SizedBox(width: 15),
-                  Text(title, style: TextStyle(color: MainTheme.accent)),
-                ],
-              ),
-              actions: [
-                ..._spacing(_buildNotificationCenter()),
-                _buildProfilePicture(),
-                SizedBox(width: 15)
-              ],
-            ),
-            body: SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                children: [
-                  MainMenu(),
-                  widget.child,
-                ],
-              ),
-            ));
+        return Stack(
+          children: [
+            Scaffold(
+                backgroundColor: MainTheme.primary,
+                floatingActionButton: (!_activateTopButton)
+                    ? null
+                    : TopButton(scrollController: _scrollController),
+                appBar: AppBar(
+                  backgroundColor: MainTheme.secondary,
+                  titleSpacing: 0,
+                  title: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () => Get.off(() => DashboardIndex()),
+                          icon: Icon(Icons.home, color: MainTheme.white)),
+                      SizedBox(width: 15),
+                      Text(title, style: TextStyle(color: MainTheme.accent)),
+                    ],
+                  ),
+                  actions: [
+                    ..._spacing(_buildNotificationCenter()),
+                    _buildProfilePicture(),
+                    SizedBox(width: 15)
+                  ],
+                ),
+                body: SingleChildScrollView(
+                  controller: _scrollController,
+                  child: Column(
+                    children: [
+                      MainMenu(),
+                      widget.child,
+                    ],
+                  ),
+                )),
+            LoadContent()
+          ],
+        );
       }
 
       return MainBar(
@@ -100,8 +109,7 @@ class _DashboardBarState extends State<DashboardBar> {
                 size: 50.0,
               ),
               SizedBox(height: 18),
-              _buildAnimatedLoading()
-              // Text("Obtendo dados", style: TextStyle(fontSize: 24))
+              _buildAnimatedLoading(),
             ],
           ),
         ),

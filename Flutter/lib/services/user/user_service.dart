@@ -74,22 +74,24 @@ class UserService {
       //! upload image from desktop
       if (Display.isDesktop()) {
         final file = await ImageController.uploadByDesktop();
-        if (file != null) {
-          String fileName = file.path.split('/').last;
-          FormData formData = FormData.fromMap({
-            "file": await MultipartFile.fromFile(file.path, filename: fileName, contentType: new MediaType("image", "png")),
-          });
-
-          final response = await Dio().post(
-            "$_webservice/set-profile-picture",
-              options: Options(headers: {"Authorization": "Bearer $token"}),
-              data: formData
-            );
-
-          AuthController.reloadProfilePhoto(context);
-        }
+        if(file == null) return; 
+        final response = await Dio().post("$_webservice/set-profile-picture",
+            options: Options(headers: {"Authorization": "Bearer $token"}),
+            data: file);
       }
 
+      if (Display.isCellphone()) {
+        final file = await ImageController.uploadByCellphone();
+        if (file == null) return;
+          final response = await Dio().post("$_webservice/set-profile-picture",
+            options: Options(headers: {"Authorization": "Bearer $token"}),
+            data: file);
+
+          print(response.data);
+      }
+
+      AsukaSnackbar.success("Foto de perfil alterada!").show();
+      AuthController.reloadProfilePhoto(context);
     } on DioError catch (err) {
       print(err);
     }

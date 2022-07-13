@@ -14,19 +14,10 @@
             ]
         },
         {
-            "name": "Mobile cellphone",
+            "name": "Mobile",
             "request": "launch",
             "type": "dart",
             "deviceId": "192.168.15.3:5555",
-            "args": [
-                "--no-sound-null-safety",
-            ]
-        },
-        {
-            "name": "Mobile emulator",
-            "request": "launch",
-            "type": "dart",
-            "deviceId": "emulator-5554",
             "args": [
                 "--no-sound-null-safety",
             ]

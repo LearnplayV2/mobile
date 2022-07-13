@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -9,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
+import 'package:learnplay/controller/loading_controller.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/services/user/user_service.dart';
 
@@ -22,6 +26,8 @@ class DashboardProfile extends StatefulWidget {
 }
 
 class _DashboardProfileState extends State<DashboardProfile> {
+  LoadingController _loadingController = Get.put(LoadingController());
+  
   @override
   Widget build(BuildContext context) {
     return DashboardBar(
@@ -51,18 +57,23 @@ class _DashboardProfileState extends State<DashboardProfile> {
             child: Column(
               children: [
                 SizedBox(
-                    width: MediaQuery.of(context).size.width * .2,
-                    height: MediaQuery.of(context).size.height * .2,
+                    width: (Display.isCellphone()) 
+                    ? MediaQuery.of(context).size.height * .2 
+                    : MediaQuery.of(context).size.height * .2,
+                    height: (Display.isCellphone()) 
+                    ? MediaQuery.of(context).size.height * .2
+                    : MediaQuery.of(context).size.height * .2,
                     child: (userState.user != null)
                         ? Image.network(UserService.getProfilePicture(
                             uuid: userState.profilePhoto!))
                         : Image.asset("assets/default-avatar.jpg")),
-                SizedBox(height: 12),
+                (Display.isDesktop()) ? SizedBox(height: 12) : Container(),
                 ElevatedButton(
                     onPressed: () {
+                      _loadingController.setIsLoading(RxBool(true));
                       UserService().changeProfilePicture(context)
-                        .then((value) => {
-                          AsukaSnackbar.success("Foto de perfil alterada!").show()
+                        .then((value) async => {
+                          _loadingController.setIsLoading(RxBool(false))
                         });
                     }, child: Container(
                       child: Row(
@@ -74,9 +85,9 @@ class _DashboardProfileState extends State<DashboardProfile> {
                         ],
                       ),
                     )),
-                SizedBox(height: 12),
+                SizedBox(height: 25),
                 Text("${userState.user?.name}", style: TextStyle(fontSize: 28)),
-                SizedBox(height: 8),
+                SizedBox(height: 14),
                 Container(
                   color: MainTheme.lighter,
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
