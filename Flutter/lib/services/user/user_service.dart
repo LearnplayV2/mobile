@@ -1,17 +1,13 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
+import 'package:learnplay/config.dart';
+import 'package:learnplay/controller/image_controller.dart';
 import 'package:learnplay/modules/dashboard/core/auth_controller.dart';
 import 'package:learnplay/services/api_config.dart';
 import 'package:learnplay/services/storage/storage.dart';
-import 'package:learnplay/types/requestError.dart';
 import 'package:learnplay/types/user.dart';
-import 'package:mime_type/mime_type.dart';
 
-import '../../bloc/login_bloc/login_bloc_event.dart';
 import '../../routes.dart';
 
 class UserService {
@@ -50,7 +46,7 @@ class UserService {
   }
 
   static logout(BuildContext context) {
-    AuthController.setUserLoggedIn(context, user: null);	
+    AuthController.setUserLoggedIn(context, user: null);
     Storage.remove(Storages.Token);
     Navigator.of(context)
         .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
@@ -70,16 +66,27 @@ class UserService {
   }
 
   changeProfilePicture() async {
-    final image = await FilePicker.platform.pickFiles( type: FileType.image );
+    try {
+      var token = await Storage.get(Storages.Token);
 
-    if(image != null) {
-      PlatformFile file = image.files.first;
-      String fileName = file.name;
-      print("FILE:::::::::::::::::");
-      print("${file.path}/${file.name}");
-      
+      // upload image from desktop
+      if (Display.isDesktop()) {
+        final file = await ImageController.uploadByDesktop();
+        if (file != null) {
+          String fileName = file.path.split('/').last;
+          FormData formData = FormData.fromMap({
+            "file": await MultipartFile.fromFile(file.path, filename: fileName),
+          });
+
+          final response = await Dio().post("$_webservice/set-profile-picture",
+              options: Options(headers: {"Authorization": "Bearer $token"}));
+
+          print(response);
+          return response;
+        }
+      }
+    } on DioError catch (err) {
+      print(err);
     }
-    
   }
-  
 }

@@ -48,6 +48,11 @@ dependencies:
   http_parser: ^4.0.1
   mime_type: ^1.0.0
   asuka: ^2.0.0+1
+  image_picker_windows: ^0.1.0+2
+  image_picker_platform_interface: ^2.5.0
+  
+dependency_overrides:
+  ffi: ">=2.0.0 <3.0.0"
 
 dev_dependencies:
   flutter_test:
