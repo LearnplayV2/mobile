@@ -9,6 +9,7 @@ import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/home/pages/home.dart';
 import 'package:learnplay/routes.dart';
 import 'bloc/store.dart';
+import 'package:asuka/asuka.dart' as asuka;
 
 void main() {
   runApp(MyApp());
@@ -22,15 +23,11 @@ class MyApp extends StatelessWidget {
       defaultTransition: getx.Transition.noTransition,
       initialRoute: RouteEnum.main.name,
       routes: routes,
-      theme: ThemeData(
-        iconTheme: IconThemeData(color: MainTheme.white),
-        primaryColor: MainTheme.secondary,
-        scaffoldBackgroundColor: MainTheme.primary,
-        textTheme: textThemeDefault(),
-      ),
+      theme: theme(),
       debugShowCheckedModeBanner: false,
       home: Home(),
-      builder: EasyLoading.init(),
+      builder: asuka.builder,
+      navigatorObservers: [asuka.asukaHeroController],
     ));
   }
 }

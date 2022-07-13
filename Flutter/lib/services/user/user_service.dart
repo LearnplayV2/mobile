@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
@@ -9,6 +9,7 @@ import 'package:learnplay/services/api_config.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/types/requestError.dart';
 import 'package:learnplay/types/user.dart';
+import 'package:mime_type/mime_type.dart';
 
 import '../../bloc/login_bloc/login_bloc_event.dart';
 import '../../routes.dart';
@@ -67,4 +68,18 @@ class UserService {
           .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
     }
   }
+
+  changeProfilePicture() async {
+    final image = await FilePicker.platform.pickFiles( type: FileType.image );
+
+    if(image != null) {
+      PlatformFile file = image.files.first;
+      String fileName = file.name;
+      print("FILE:::::::::::::::::");
+      print("${file.path}/${file.name}");
+      
+    }
+    
+  }
+  
 }

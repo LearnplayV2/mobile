@@ -113,7 +113,7 @@ class _DashboardBarState extends State<DashboardBar> {
     return AnimatedTextKit(
       animatedTexts: [
         WavyAnimatedText(
-          "obtendo dados",
+          "Carregando",
           textStyle: TextStyle(fontSize: 20),
         ),
       ],
@@ -122,13 +122,13 @@ class _DashboardBarState extends State<DashboardBar> {
   }
 
   _spacing(Widget widget) {
-    return [widget, SizedBox(width: 8)];
+    return [widget, SizedBox(width: 15)];
   }
 
   _buildNotificationCenter() {
     return IconButton(
         onPressed: () => Get.off(() => DashboardNotifications()),
-        icon: Icon(Icons.notifications_none, color: MainTheme.white));
+        icon: Icon(Icons.notifications_none, color: MainTheme.white, size: 28));
   }
 
   _buildProfilePicture() {

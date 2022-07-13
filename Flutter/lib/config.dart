@@ -4,14 +4,30 @@ import 'package:flutter/material.dart';
 
 const String title = "LearnPlay";
 
-TextTheme textThemeDefault() {
-  return TextTheme(
-    headline1: TextStyle(color: MainTheme.white),
-    headline2: TextStyle(color: MainTheme.white),
-    bodyText2: TextStyle(color: MainTheme.white),
-    subtitle1: TextStyle(color: MainTheme.white),
-    bodyText1: TextStyle(color: MainTheme.white),
-    button: TextStyle(color: MainTheme.white),
+ThemeData theme() {
+  return ThemeData(
+      iconTheme: IconThemeData(color: MainTheme.white),
+      primaryColor: MainTheme.secondary,
+      scaffoldBackgroundColor: MainTheme.primary,
+      textTheme: TextTheme(
+        headline1: TextStyle(color: MainTheme.white),
+        headline2: TextStyle(color: MainTheme.white),
+        bodyText2: TextStyle(color: MainTheme.white),
+        subtitle1: TextStyle(color: MainTheme.white),
+        bodyText1: TextStyle(color: MainTheme.white),
+        button: TextStyle(color: MainTheme.white),
+      ),
+      appBarTheme: AppBarTheme(
+        toolbarHeight: 85,
+        elevation: 0
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          primary: MainTheme.accent,
+          // splashFactory: NoSplash.splashFactory,
+          elevation: 0
+        )
+      ),
   );
 }
 
@@ -31,9 +47,10 @@ class MainTheme {
   static Text h1(String text, {Color? color, double? size}) {
     return Text(text,
         style: TextStyle(
-            fontSize: size ?? 24, fontWeight: FontWeight.bold, color: color ?? Colors.white70));
+            fontSize: size ?? 24,
+            fontWeight: FontWeight.bold,
+            color: color ?? Colors.white70));
   }
-
 }
 
 class Display {

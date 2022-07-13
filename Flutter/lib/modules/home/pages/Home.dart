@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:asuka/asuka.dart' as asuka;
+import 'package:asuka/snackbars/asuka_snack_bar.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -103,10 +105,7 @@ class _HomeState extends State<Home> {
         checkIsLoggedIn();
       }).catchError((err) {
         var error = RequestError.decode(err.toString());
-        Alerts.error(context,
-            title: "Ocorreu um erro",
-            message:
-                "${error.response?.message ?? 'Ocorreu um erro inesperado'}");
+        AsukaSnackbar.alert("${error.response?.message ?? 'Ocorreu um erro inesperado'}").show();
       });
     }
   }

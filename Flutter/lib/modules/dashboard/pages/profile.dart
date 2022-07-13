@@ -44,21 +44,29 @@ class _DashboardProfileState extends State<DashboardProfile> {
           SizedBox(height: 25),
           Container(
             alignment: Alignment.center,
-            child: SizedBox(
-                child: CircleAvatar(
-                    radius: (52),
-                    backgroundColor: Colors.blue,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: (userState.user != null) 
-                      ? Image.network(UserService.getProfilePicture(uuid: userState.user!.uuid!))
-                      : Image.asset("assets/default-avatar.jpg")
-                    ))),
+            child: Column(
+              children: [
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * .3,
+                    child: (userState.user != null)
+                        ? Image.network(UserService.getProfilePicture(
+                            uuid: userState.user!.uuid!))
+                        : Image.asset("assets/default-avatar.jpg")),
+                SizedBox(height: 8),
+                ElevatedButton(
+                    onPressed: () => UserService().changeProfilePicture(), child: Container(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.photo_camera),
+                          SizedBox(width: 8),
+                          Text("Mudar imagem"),
+                        ],
+                      ),
+                    )),
+              ],
+            ),
           ),
-          Text("aaaaaaaaaaa"),
-          Text("aaaaaaaaaaa"),
-          Text("aaaaaaaaaaa"),
-          Text("aaaaaaaaaaa")
         ]);
       }),
     );
