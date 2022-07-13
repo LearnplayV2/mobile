@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/controller/image_controller.dart';
 import 'package:learnplay/modules/dashboard/core/auth_controller.dart';
@@ -65,23 +66,26 @@ class UserService {
     }
   }
 
-  changeProfilePicture() async {
+  changeProfilePicture(BuildContext context) async {
     try {
       var token = await Storage.get(Storages.Token);
 
-      // upload image from desktop
+      //! upload image from desktop
       if (Display.isDesktop()) {
         final file = await ImageController.uploadByDesktop();
         if (file != null) {
           String fileName = file.path.split('/').last;
           FormData formData = FormData.fromMap({
-            "file": await MultipartFile.fromFile(file.path, filename: fileName),
+            "file": await MultipartFile.fromFile(file.path, filename: fileName, contentType: new MediaType("image", "png")),
           });
 
-          final response = await Dio().post("$_webservice/set-profile-picture",
-              options: Options(headers: {"Authorization": "Bearer $token"}));
+          final response = await Dio().post(
+            "$_webservice/set-profile-picture",
+              options: Options(headers: {"Authorization": "Bearer $token"}),
+              data: formData
+            );
 
-          print(response);
+          AuthController.reloadProfilePhoto(context);
           return response;
         }
       }

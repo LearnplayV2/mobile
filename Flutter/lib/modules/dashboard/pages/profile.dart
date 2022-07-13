@@ -50,11 +50,11 @@ class _DashboardProfileState extends State<DashboardProfile> {
                     width: MediaQuery.of(context).size.width * .3,
                     child: (userState.user != null)
                         ? Image.network(UserService.getProfilePicture(
-                            uuid: userState.user!.uuid!))
+                            uuid: userState.profilePhoto!))
                         : Image.asset("assets/default-avatar.jpg")),
                 SizedBox(height: 8),
                 ElevatedButton(
-                    onPressed: () => UserService().changeProfilePicture(), child: Container(
+                    onPressed: () => UserService().changeProfilePicture(context), child: Container(
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

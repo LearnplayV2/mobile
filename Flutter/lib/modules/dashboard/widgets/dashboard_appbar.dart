@@ -146,7 +146,7 @@ class _DashboardBarState extends State<DashboardBar> {
             name: "${state.user?.name ?? ''}",
             radius: 31,
             img:
-                "${UserService.getProfilePicture(uuid: state.user?.uuid ?? 'assets/default-avatar.jpg')}",
+                "${UserService.getProfilePicture(uuid: state.profilePhoto ?? 'assets/default-avatar.jpg')}",
             fontsize: 15,
           ),
         );

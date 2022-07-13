@@ -14,6 +14,10 @@ class AuthController {
     return BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: user));
   }
 
+  static void reloadProfilePhoto(BuildContext context) {
+    return BlocProvider.of<LoginBloc>(context).add(SetProfilePhoto());
+  }
+
   static userCheck(BuildContext context) async {
     var user = await UserService.checkUserLoggedIn(context);
     if (user != null) {
