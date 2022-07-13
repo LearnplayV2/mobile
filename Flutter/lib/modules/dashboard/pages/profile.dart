@@ -48,6 +48,7 @@ class _DashboardProfileState extends State<DashboardProfile> {
               children: [
                 SizedBox(
                     width: MediaQuery.of(context).size.width * .3,
+                    height: MediaQuery.of(context).size.height * .3,
                     child: (userState.user != null)
                         ? Image.network(UserService.getProfilePicture(
                             uuid: userState.profilePhoto!))
