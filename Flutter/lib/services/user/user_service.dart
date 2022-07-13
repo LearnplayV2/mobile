@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:asuka/asuka.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
@@ -66,7 +67,7 @@ class UserService {
     }
   }
 
-  changeProfilePicture(BuildContext context) async {
+  Future changeProfilePicture(BuildContext context) async {
     try {
       var token = await Storage.get(Storages.Token);
 
@@ -86,9 +87,9 @@ class UserService {
             );
 
           AuthController.reloadProfilePhoto(context);
-          return response;
         }
       }
+
     } on DioError catch (err) {
       print(err);
     }
