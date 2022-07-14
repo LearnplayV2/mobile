@@ -10,7 +10,6 @@ import '../../../routes.dart';
 import '../../../services/user/user_service.dart';
 
 class AuthController {
-
   static void setUserLoggedIn(BuildContext context, {User? user}) {
     return BlocProvider.of<LoginBloc>(context).add(SetUserLoggedIn(user: user));
   }
@@ -19,15 +18,23 @@ class AuthController {
     return BlocProvider.of<LoginBloc>(context).add(SetProfilePhoto());
   }
 
-  static userCheck(BuildContext context) async {
-    var user = await UserService.checkUserLoggedIn(context);
-    if (user != null) {
-      AuthController.setUserLoggedIn(context, user: user);
-      Storage.save(Storages.Token, value: user.token!);
+  static userCheck(BuildContext context, {bool isGuestPage = false}) async {
+    //* check user in guest page or not
+    if (isGuestPage) {
+      if (await Storage.get(StorageType.Token) != null) {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            RouteEnum.dashboard.name, (route) => false);
+      }
     } else {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
+      var user = await UserService.checkUserLoggedIn(context);
+      if (user != null) {
+        AuthController.setUserLoggedIn(context, user: user);
+        Storage.save(StorageType.Token, value: user.token!);
+      } else {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
+      }
     }
   }
-  
+
 }

@@ -54,6 +54,10 @@ dependencies:
   image_picker: ^0.8.5+3
   shimmer: ^2.0.0
   jwt_decoder: ^2.0.1
+  json_serializable: ^6.3.1
+  build_runner: ^2.2.0
+  json_annotation: ^4.6.0
+  socket_io_client: ^2.0.0
   
 dependency_overrides:
   ffi: ">=2.0.0 <3.0.0"

@@ -25,7 +25,7 @@ import '../../../bloc/login_bloc/login_bloc_event.dart';
 import '../../../config.dart';
 import '../../../services/storage/storage.dart';
 import '../../../services/user/user_service.dart';
-import '../core/auth_controller.dart';
+import '../../core/auth_controller.dart';
 
 class DashboardBar extends StatefulWidget {
   final Widget child;

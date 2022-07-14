@@ -13,6 +13,7 @@ import 'package:learnplay/components/alert/alerts.dart';
 import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
+import 'package:learnplay/modules/core/auth_controller.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/services/user/user_service.dart';
@@ -36,14 +37,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    checkIsLoggedIn();
-  }
-
-  checkIsLoggedIn() async {
-    if (await Storage.get(Storages.Token) != null) {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil(RouteEnum.dashboard.name, (route) => false);
-    }
+    AuthController.userCheck(context, isGuestPage: true);
   }
 
   @override
@@ -102,7 +96,7 @@ class _HomeState extends State<Home> {
     if (_formKey.currentState!.validate()) {
       UserService.login(User(email: email.text, password: password.text))
           .then((value) async {
-        checkIsLoggedIn();
+        AuthController.userCheck(context, isGuestPage: true);
       }).catchError((err) {
         var error = RequestError.decode(err.toString());
         AsukaSnackbar.alert("${error.response?.message ?? 'Ocorreu um erro inesperado'}").show();
