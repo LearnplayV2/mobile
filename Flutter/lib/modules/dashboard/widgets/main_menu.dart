@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:learnplay/config.dart';
+import 'package:learnplay/modules/dashboard/pages/members.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({
@@ -25,6 +27,7 @@ class MainMenu extends StatelessWidget {
               _buildLink(text: "Aulas"),
               _buildLink(text: "Artigos"),
               _buildLink(text: "Materiais"),
+              _buildLink(text: "Membros", onPressed: () => Get.to(() => DashboardMembers())),
             ],
           ),
         ),

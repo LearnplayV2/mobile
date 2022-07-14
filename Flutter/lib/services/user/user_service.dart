@@ -80,6 +80,7 @@ class UserService {
             data: file);
       }
 
+      //! upload image from mobile device
       if (Display.isCellphone()) {
         final file = await ImageController.uploadByCellphone();
         if (file == null) return;
@@ -96,4 +97,36 @@ class UserService {
       print(err);
     }
   }
+
+  static Future<List<User>?> getAllMembers() async {
+    try {
+      var token = await Storage.get(Storages.Token);
+
+      final request = await Dio().get("$_webservice/members",  options: Options(headers: {"Authorization": "Bearer $token"}));
+
+      final res = request.data as List;
+      final response = res.map((user) => User.fromJson(user)).toList();
+
+      return response;
+
+    } on DioError catch(err) {
+      print(err);
+    }
+  }
+
+  static Future<User?> getMember({required String uuid}) async {
+    try {
+
+      var token = await Storage.get(Storages.Token);
+      
+      final request = await Dio().get("$_webservice/profile/${uuid}",  options: Options(headers: {"Authorization": "Bearer $token"}));
+      final response = User.fromJson(request.data);
+
+      return response;
+      
+    } on DioError catch(err) {
+      print(err);
+    }
+  }
+  
 }

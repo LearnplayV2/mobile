@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/types/user.dart';
 
 import '../../../bloc/login_bloc/login_bloc.dart';
@@ -22,6 +23,7 @@ class AuthController {
     var user = await UserService.checkUserLoggedIn(context);
     if (user != null) {
       AuthController.setUserLoggedIn(context, user: user);
+      Storage.save(Storages.Token, value: user.token!);
     } else {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);

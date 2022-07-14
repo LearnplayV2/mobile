@@ -52,6 +52,8 @@ dependencies:
   image_picker_platform_interface: ^2.5.0
   intl: ^0.17.0
   image_picker: ^0.8.5+3
+  shimmer: ^2.0.0
+  jwt_decoder: ^2.0.1
   
 dependency_overrides:
   ffi: ">=2.0.0 <3.0.0"
