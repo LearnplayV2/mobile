@@ -44,7 +44,7 @@ class UserService {
   }
 
   static getProfilePicture({required String uuid}) {
-    return "$_webservice/get-profile-picture/$uuid";
+    return "$_webservice/get-profile-picture/$uuid?_=${DateTime.now().millisecondsSinceEpoch}";
   }
 
   static logout(BuildContext context) {

@@ -70,7 +70,7 @@ class _DashboardMembersState extends State<DashboardMembers> {
                           width: 100,
                           height: 100,
                           child: Image.network(UserService.getProfilePicture(
-                              uuid: "${_members![index].uuid!}?_=${DateTime.now().millisecondsSinceEpoch}"))),
+                              uuid: "${_members![index].uuid!}"))),
                       SizedBox(width: 15),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
