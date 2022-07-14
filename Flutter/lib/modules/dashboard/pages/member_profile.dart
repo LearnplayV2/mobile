@@ -15,6 +15,7 @@ import 'package:learnplay/config.dart';
 import 'package:learnplay/controller/loading_controller.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
+import 'package:learnplay/modules/dashboard/widgets/skeleton_loading.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/services/user/user_service.dart';
 import 'package:learnplay/types/user.dart';
@@ -53,11 +54,26 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
 
   @override
   Widget build(BuildContext context) {
-    if(_member == null) return Container(child: Text("carregando..."));
-
     return DashboardBar(
-      child: WidgetList.DisplayCenter(context, children: [
-          MainTheme.h1("Perfil de ${_member!.name}", color: MainTheme.accent),
+      child: WidgetList.DisplayCenter(
+        context, 
+        children: (_member == null) ? _buildLoadingProfile() : _buildProfile()
+      ),
+    );
+  }
+
+  _buildLoadingProfile() {
+    return [
+      SkeletonLoading(w: MediaQuery.of(context).size.width, h: 60),
+      SkeletonLoading(w: MediaQuery.of(context).size.width, h: 120),
+      SkeletonLoading(w: MediaQuery.of(context).size.width, h: 60),
+      SkeletonLoading(w: MediaQuery.of(context).size.width, h: 60),
+    ];
+  }
+
+  _buildProfile() {
+    return [
+      MainTheme.h1("Perfil de ${_member!.name}", color: MainTheme.accent),
           SizedBox(height: 25),
           Container(
             alignment: Alignment.center,
@@ -86,8 +102,8 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
                         "Ativo desde ${DateFormat('dd/MM/yyyy, kk:mm').format(DateTime.parse(_member!.createdAt ?? DateTime.now().toString()))}"))
               ],
             ),
-          ),
-        ]),
-    );
+          )
+    ];
   }
+  
 }
