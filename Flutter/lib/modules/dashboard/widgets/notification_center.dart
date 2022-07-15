@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
 
 import '../../../config.dart';
@@ -22,7 +23,9 @@ class NotificationCenter extends StatelessWidget {
   _buildNotificationBadge() {
     return Badge(
       badgeContent: Text(
-          "${notificationsController.notifications.value.where((notification) => notification!.read != false).length}"),
+          "${notificationsController.notifications.value.where((notification) => notification!.read != false).length}",
+          style: GoogleFonts.lato(color: Colors.white),
+        ),
       position: BadgePosition.topEnd(
           top: 15, end: (Display.isCellphone()) ? -1 : -3),
       child: _notificationIcon(),

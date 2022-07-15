@@ -58,6 +58,7 @@ dependencies:
   json_annotation: ^4.6.0
   badges: ^2.0.3
   font_awesome_flutter: ^10.1.0
+  google_fonts: ^3.0.1
   
 dependency_overrides:
   ffi: ">=2.0.0 <3.0.0"

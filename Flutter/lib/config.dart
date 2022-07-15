@@ -1,21 +1,25 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const String title = "LearnPlay";
 
 ThemeData theme() {
+
+  _defaultTextStyle() => GoogleFonts.openSans(color: MainTheme.white);
+  
   return ThemeData(
       iconTheme: IconThemeData(color: MainTheme.white),
       primaryColor: MainTheme.secondary,
       scaffoldBackgroundColor: MainTheme.primary,
       textTheme: TextTheme(
-        headline1: TextStyle(color: MainTheme.white),
-        headline2: TextStyle(color: MainTheme.white),
-        bodyText2: TextStyle(color: MainTheme.white),
-        subtitle1: TextStyle(color: MainTheme.white),
-        bodyText1: TextStyle(color: MainTheme.white),
-        button: TextStyle(color: MainTheme.white),
+        headline1: _defaultTextStyle(),
+        headline2: _defaultTextStyle(),
+        bodyText2: _defaultTextStyle(),
+        subtitle1: _defaultTextStyle(),
+        bodyText1: _defaultTextStyle(),
+        button: _defaultTextStyle(),
       ),
       appBarTheme: AppBarTheme(
         toolbarHeight: 85,
