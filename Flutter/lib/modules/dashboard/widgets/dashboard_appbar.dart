@@ -175,7 +175,7 @@ class _DashboardBarState extends State<DashboardBar> {
     return Visibility(
       visible: _notificationsController.notifications.value != null && _notificationsController.notifications.value!.length > 0,
       child: Badge(
-        badgeContent: Obx(() => Text("${_notificationsController.notifications.value?.length}")),
+        badgeContent: Obx(() => Text("${_notificationsController.notifications.value?.where((notification) => notification.read != false)?.length}")),
         position: BadgePosition.topEnd(top: 15, end: (Display.isCellphone()) ? -1 : -3),
         child: _notificationIcon(),
       ),

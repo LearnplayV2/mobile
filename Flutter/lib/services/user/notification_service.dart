@@ -22,5 +22,21 @@ class NotificationService {
       print(err);
     }
   }
+
+  static Future<List<Notification>?> toggleNotification({required int id}) async {
+    try {
+      var token = await Storage.get(StorageType.Token);
+
+      final request = await Dio().put("$_webservice/notification/toggle/$id",  options: Options(headers: {"Authorization": "Bearer $token"}));
+
+      final res = request.data as List;
+      final response = res.map((notification) => Notification.fromJson(notification)).toList();
+
+      return response;
+      
+    } on DioError catch (err) {
+      print(err);
+    }
+  }
   
 }

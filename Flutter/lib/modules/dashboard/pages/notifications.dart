@@ -9,6 +9,8 @@ import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 
+import '../../../services/user/notification_service.dart';
+
 class DashboardNotifications extends StatefulWidget {
   const DashboardNotifications({Key? key}) : super(key: key);
 
@@ -17,7 +19,11 @@ class DashboardNotifications extends StatefulWidget {
 }
 
 class _DashboardNotificationsState extends State<DashboardNotifications> {
-  final _notifications = Get.put(NotificationsController()).notifications;
+  final _notificationsController = Get.put(NotificationsController());
+
+  _toggleNotification({required int id}) async {
+    _notificationsController.setNotifications(await NotificationService.toggleNotification(id: id));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +37,11 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
   }
 
   _buildNotificationList() {
-    if (_notifications.value != null && _notifications.value!.length > 0) {
+    if (_notificationsController.notifications.value != null && _notificationsController.notifications.value!.length > 0) {
       return Obx(() => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: List.generate(
-                _notifications.value!.length,
+                _notificationsController.notifications.value!.length,
                 (index) => Container(
                       color: MainTheme.lighter,
                       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
@@ -45,14 +51,12 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.fiber_manual_record, size: 16, color: (_notifications.value![index].read!) ? Colors.grey : MainTheme.accent),
-                              SizedBox(width: 10),
-                              Text("${_notifications.value![index].title}",
+                              Text("${_notificationsController.notifications.value![index].title}",
                               style: TextStyle(fontSize: 13)),
                             ],
                           ),
                           
-                          IconButton(onPressed: () {}, icon: FaIcon(FontAwesomeIcons.eye, color: Colors.grey, size: 16)),
+                          IconButton(onPressed: () => _toggleNotification(id: _notificationsController.notifications.value![index].id!), icon: (_notificationsController.notifications.value![index].read!) ? FaIcon(FontAwesomeIcons.eye, color: Colors.grey, size: 16) : FaIcon(FontAwesomeIcons.eyeSlash, color: Colors.grey, size: 16)),
                         ],
                       ),
                     )),
