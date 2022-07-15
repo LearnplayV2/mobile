@@ -55,7 +55,7 @@ class _DashboardBarState extends State<DashboardBar> {
     _scrollController.addListener(_scrollListener);
     _notifications();
   }
-
+  
   _notifications() async {
     _notificationsController
         .setNotifications(await NotificationService.getNotifications());

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:learnplay/services/api_config.dart';
 import 'package:learnplay/services/socket/notification.dart';
@@ -6,15 +7,15 @@ import 'package:learnplay/services/storage/storage.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class StreamSocket {
-  final _socketResponse = StreamController<String>();
+  final socketController = StreamController<String>();
 
-  void Function(String) get addResponse => _socketResponse.sink.add;
+  void addResponse({required String event, dynamic data}) => socketController.sink.add(json.encode({'event': event, 'data': data}));
 
-  Stream<String> get getResponse => _socketResponse.stream;
+  Stream<String> get getResponse => socketController.stream;
 
-  void dispose() {
-    _socketResponse.close();
-  }
+  // void dispose() {
+  //   socketController.close();
+  // }
 }
 
 class WebsocketServer {

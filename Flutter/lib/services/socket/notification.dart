@@ -1,12 +1,20 @@
+import 'package:get/get.dart';
+import 'package:learnplay/modules/core/notifications_controller.dart';
 import 'package:learnplay/services/socket/socket.dart';
+import 'package:learnplay/types/notification.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class NotificationSocket {
 
+  static final _notificationController = Get.put(NotificationsController());
   static final socket = WebsocketServer.socket;
 
   static void listen() {
-    socket.on('getNotification', (data) => streamSocket.addResponse);
+    socket.on('getNotification', (event) {
+      final evList = event as List;
+      final data = evList.map((e) => Notification.fromJson(e)).toList();
+      _notificationController.setNotifications(data);
+    });
   }
 
   static void sendNotification({required String uuid, required String message, String? description}) {
