@@ -22,7 +22,8 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
   final _notificationsController = Get.put(NotificationsController());
 
   _toggleNotification({required int id}) async {
-    _notificationsController.setNotifications(await NotificationService.toggleNotification(id: id));
+    _notificationsController
+        .setNotifications(await NotificationService.toggleNotification(id: id));
   }
 
   @override
@@ -37,26 +38,33 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
   }
 
   _buildNotificationList() {
-    if (_notificationsController.notifications.value != null && _notificationsController.notifications.value!.length > 0) {
+    if (_notificationsController.notifications.value != null &&
+        _notificationsController.notifications.value!.length > 0) {
       return Obx(() => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: List.generate(
                 _notificationsController.notifications.value!.length,
                 (index) => Container(
                       color: MainTheme.lighter,
-                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                      padding: EdgeInsets.all(5),
                       margin: EdgeInsets.only(bottom: 5),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Text("${_notificationsController.notifications.value![index].title}",
+                          IconButton(
+                              onPressed: () => _toggleNotification(
+                                  id: _notificationsController
+                                      .notifications.value![index].id!),
+                              icon: (_notificationsController
+                                      .notifications.value![index].read!)
+                                  ? FaIcon(FontAwesomeIcons.eye,
+                                      color: Colors.grey, size: 16)
+                                  : FaIcon(FontAwesomeIcons.eyeSlash,
+                                      color: Colors.grey, size: 16)),
+                          SizedBox(width: 16),
+                          Text(
+                              "${_notificationsController.notifications.value![index].title}",
                               style: TextStyle(fontSize: 13)),
-                            ],
-                          ),
-                          
-                          IconButton(onPressed: () => _toggleNotification(id: _notificationsController.notifications.value![index].id!), icon: (_notificationsController.notifications.value![index].read!) ? FaIcon(FontAwesomeIcons.eye, color: Colors.grey, size: 16) : FaIcon(FontAwesomeIcons.eyeSlash, color: Colors.grey, size: 16)),
                         ],
                       ),
                     )),
