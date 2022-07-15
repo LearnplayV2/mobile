@@ -8,6 +8,8 @@ import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/home/pages/home.dart';
 import 'package:learnplay/routes.dart';
+import 'package:learnplay/services/socket/socket.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'bloc/store.dart';
 import 'package:asuka/asuka.dart' as asuka;
 

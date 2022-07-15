@@ -8,6 +8,7 @@ import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
+import 'package:learnplay/services/socket/socket.dart';
 
 import '../../../services/user/notification_service.dart';
 
@@ -40,7 +41,20 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: (_notificationsController.notifications.value.isEmpty)
                   ? [Container(child: Text("Você não possui notificações."))]
-                  : _buildNotificationList(),
+                  : [
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: Visibility(
+                        visible: _notificationsController.notifications.value.where((notification) => notification!.read == false).length > 0,
+                        child: ElevatedButton(
+                          onPressed: () => _makeAllNotificationRead(),
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(MainTheme.lighter)),
+                          child: Text("Marcar todas como lida"),
+                        ),
+                      ),
+                    ),
+                    ..._buildNotificationList()
+                  ],
             )),
       ]),
     );
@@ -52,14 +66,7 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
         (index) => Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Visibility(
-              visible: _notificationsController.notifications.value.where((notification) => notification!.read == false).length > 0,
-              child: ElevatedButton(
-                onPressed: () => _makeAllNotificationRead(),
-                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(MainTheme.lighter)),
-                child: Text("Marcar todas como lida"),
-              ),
-            ),
+            
             Container(
                   color: MainTheme.lighter,
                   padding: EdgeInsets.all(5),
@@ -87,4 +94,6 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
           ],
         ));
   }
+
+
 }

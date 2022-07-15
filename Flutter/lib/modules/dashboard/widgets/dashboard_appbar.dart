@@ -23,6 +23,7 @@ import 'package:learnplay/modules/dashboard/widgets/notification_center.dart';
 import 'package:learnplay/modules/dashboard/widgets/top_button.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/services/api_config.dart';
+import 'package:learnplay/services/socket/socket.dart';
 import 'package:learnplay/services/user/notification_service.dart';
 import 'package:learnplay/types/user.dart';
 
@@ -50,12 +51,14 @@ class _DashboardBarState extends State<DashboardBar> {
   void initState() {
     super.initState();
     AuthController.userCheck(context);
+    WebsocketServer.connectAndListen();
     _scrollController.addListener(_scrollListener);
     _notifications();
   }
-  
+
   _notifications() async {
-    _notificationsController.setNotifications(await NotificationService.getNotifications());
+    _notificationsController
+        .setNotifications(await NotificationService.getNotifications());
   }
 
   _scrollListener() {
@@ -93,7 +96,8 @@ class _DashboardBarState extends State<DashboardBar> {
                     ],
                   ),
                   actions: [
-                    ..._spacing(NotificationCenter(notificationsController: _notificationsController)),
+                    ..._spacing(NotificationCenter(
+                        notificationsController: _notificationsController)),
                     _buildProfilePicture(),
                     SizedBox(width: 15)
                   ],
@@ -101,10 +105,7 @@ class _DashboardBarState extends State<DashboardBar> {
                 body: SingleChildScrollView(
                   controller: _scrollController,
                   child: Column(
-                    children: [
-                      MainMenu(),
-                      widget.child
-                    ],
+                    children: [MainMenu(), widget.child],
                   ),
                 )),
             _buildBackButtonForDesktop(),
@@ -135,17 +136,16 @@ class _DashboardBarState extends State<DashboardBar> {
     return Visibility(
       visible: Display.isDesktop() && Navigator.of(context).canPop(),
       child: Positioned(
-        bottom: 0,
-        left: 15,
-        child: SizedBox(
-          width: 30,
-          child: FloatingActionButton(
-            backgroundColor: MainTheme.lighter,
-            onPressed: () => Navigator.of(context).maybePop(),
-            child: Icon(Icons.arrow_back, size: 16),
-          ),
-        )
-      ),
+          bottom: 0,
+          left: 15,
+          child: SizedBox(
+            width: 30,
+            child: FloatingActionButton(
+              backgroundColor: MainTheme.lighter,
+              onPressed: () => Navigator.of(context).maybePop(),
+              child: Icon(Icons.arrow_back, size: 16),
+            ),
+          )),
     );
   }
 
@@ -164,7 +164,6 @@ class _DashboardBarState extends State<DashboardBar> {
   _spacing(Widget widget) {
     return [widget, SizedBox(width: 15)];
   }
-
 
   _buildProfilePicture() {
     return SizedBox(
