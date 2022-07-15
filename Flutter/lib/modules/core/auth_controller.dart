@@ -31,7 +31,7 @@ class AuthController {
         AuthController.setUserLoggedIn(context, user: user);
         Storage.save(StorageType.Token, value: user.token!);
       } else {
-        Navigator.of(context)
+        return Navigator.of(context)
             .pushNamedAndRemoveUntil(RouteEnum.main.name, (route) => false);
       }
     }

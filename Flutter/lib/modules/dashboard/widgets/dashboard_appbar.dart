@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,6 +13,7 @@ import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/controller/loading_controller.dart';
+import 'package:learnplay/modules/core/notifications_controller.dart';
 import 'package:learnplay/modules/dashboard/pages/index.dart';
 import 'package:learnplay/modules/dashboard/pages/notifications.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
@@ -19,6 +21,8 @@ import 'package:learnplay/modules/dashboard/widgets/load_content.dart';
 import 'package:learnplay/modules/dashboard/widgets/main_menu.dart';
 import 'package:learnplay/modules/dashboard/widgets/top_button.dart';
 import 'package:learnplay/routes.dart';
+import 'package:learnplay/services/api_config.dart';
+import 'package:learnplay/services/user/notification_service.dart';
 import 'package:learnplay/types/user.dart';
 
 import '../../../bloc/login_bloc/login_bloc_event.dart';
@@ -39,12 +43,18 @@ class DashboardBar extends StatefulWidget {
 class _DashboardBarState extends State<DashboardBar> {
   ScrollController _scrollController = ScrollController();
   bool _activateTopButton = false;
+  final _notificationsController = Get.put(NotificationsController());
 
   @override
   void initState() {
     super.initState();
     AuthController.userCheck(context);
     _scrollController.addListener(_scrollListener);
+    _notifications();
+  }
+  
+  _notifications() async {
+    _notificationsController.setNotifications(await NotificationService.getNotifications());
   }
 
   _scrollListener() {
@@ -68,11 +78,12 @@ class _DashboardBarState extends State<DashboardBar> {
                     ? null
                     : TopButton(scrollController: _scrollController),
                 appBar: AppBar(
-                  automaticallyImplyLeading: false,
+                  automaticallyImplyLeading: (Display.isDesktop()) ? true : false,
                   backgroundColor: MainTheme.secondary,
                   titleSpacing: 0,
                   title: Row(
                     children: [
+                      SizedBox(width: 12),
                       IconButton(
                           onPressed: () => Get.off(() => DashboardIndex()),
                           icon: Icon(Icons.home, color: MainTheme.white)),
@@ -91,10 +102,11 @@ class _DashboardBarState extends State<DashboardBar> {
                   child: Column(
                     children: [
                       MainMenu(),
-                      widget.child,
+                      widget.child
                     ],
                   ),
                 )),
+            // _buildBackButtonForDesktop(),
             LoadContent()
           ],
         );
@@ -118,6 +130,24 @@ class _DashboardBarState extends State<DashboardBar> {
     });
   }
 
+  _buildBackButtonForDesktop() {
+    return Visibility(
+      visible: Display.isDesktop() && Navigator.of(context).canPop(),
+      child: Positioned(
+        bottom: 0,
+        left: 15,
+        child: SizedBox(
+          width: 30,
+          child: FloatingActionButton(
+            backgroundColor: MainTheme.lighter,
+            onPressed: () => Navigator.of(context).maybePop(),
+            child: Icon(Icons.arrow_back, size: 16),
+          ),
+        )
+      ),
+    );
+  }
+
   _buildAnimatedLoading() {
     return AnimatedTextKit(
       animatedTexts: [
@@ -135,9 +165,22 @@ class _DashboardBarState extends State<DashboardBar> {
   }
 
   _buildNotificationCenter() {
-    return IconButton(
-        onPressed: () => Get.off(() => DashboardNotifications()),
-        icon: Icon(Icons.notifications_none, color: MainTheme.white, size: 28));
+
+    _notificationIcon() {
+      return IconButton(
+          onPressed: () => Get.to(() => DashboardNotifications()),
+          icon: Icon(Icons.notifications_none, color: MainTheme.white, size: 28));
+    }
+    
+    return Visibility(
+      visible: _notificationsController.notifications.value != null && _notificationsController.notifications.value!.length > 0,
+      child: Badge(
+        badgeContent: Obx(() => Text("${_notificationsController.notifications.value?.length}")),
+        position: BadgePosition.topEnd(top: 15, end: (Display.isCellphone()) ? -1 : -3),
+        child: _notificationIcon(),
+      ),
+      replacement: _notificationIcon(),
+    );
   }
 
   _buildProfilePicture() {
@@ -145,7 +188,7 @@ class _DashboardBarState extends State<DashboardBar> {
       width: 30,
       child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
         return ElevatedButton(
-          onPressed: () => Get.off(() => DashboardProfile()),
+          onPressed: () => Get.to(() => DashboardProfile()),
           style: ElevatedButton.styleFrom(
               elevation: 0,
               primary: Colors.transparent,
