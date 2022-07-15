@@ -38,12 +38,11 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
   }
 
   _buildNotificationList() {
-    if (_notificationsController.notifications.value != null &&
-        _notificationsController.notifications.value!.length > 0) {
       return Obx(() => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(
-                _notificationsController.notifications.value!.length,
+            children: (_notificationsController.notifications.value.isEmpty) ? [Container(
+      child: Text("Você não possui notificações."))] : List.generate(
+                _notificationsController.notifications.value.length,
                 (index) => Container(
                       color: MainTheme.lighter,
                       padding: EdgeInsets.all(5),
@@ -54,24 +53,20 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
                           IconButton(
                               onPressed: () => _toggleNotification(
                                   id: _notificationsController
-                                      .notifications.value![index].id!),
+                                      .notifications.value[index]!.id!),
                               icon: (_notificationsController
-                                      .notifications.value![index].read!)
+                                      .notifications.value[index]!.read!)
                                   ? FaIcon(FontAwesomeIcons.eye,
                                       color: Colors.grey, size: 16)
                                   : FaIcon(FontAwesomeIcons.eyeSlash,
                                       color: Colors.grey, size: 16)),
                           SizedBox(width: 16),
                           Text(
-                              "${_notificationsController.notifications.value![index].title}",
+                              "${_notificationsController.notifications.value[index]!.title}",
                               style: TextStyle(fontSize: 13)),
                         ],
                       ),
                     )),
           ));
-    }
-    return Container(
-      child: Text("Você não possui notificações."),
-    );
   }
 }

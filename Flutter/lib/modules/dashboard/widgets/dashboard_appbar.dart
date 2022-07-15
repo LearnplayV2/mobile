@@ -19,6 +19,7 @@ import 'package:learnplay/modules/dashboard/pages/notifications.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
 import 'package:learnplay/modules/dashboard/widgets/load_content.dart';
 import 'package:learnplay/modules/dashboard/widgets/main_menu.dart';
+import 'package:learnplay/modules/dashboard/widgets/notification_center.dart';
 import 'package:learnplay/modules/dashboard/widgets/top_button.dart';
 import 'package:learnplay/routes.dart';
 import 'package:learnplay/services/api_config.dart';
@@ -92,7 +93,7 @@ class _DashboardBarState extends State<DashboardBar> {
                     ],
                   ),
                   actions: [
-                    ..._spacing(_buildNotificationCenter()),
+                    ..._spacing(NotificationCenter(notificationsController: _notificationsController)),
                     _buildProfilePicture(),
                     SizedBox(width: 15)
                   ],
@@ -164,24 +165,6 @@ class _DashboardBarState extends State<DashboardBar> {
     return [widget, SizedBox(width: 15)];
   }
 
-  _buildNotificationCenter() {
-
-    _notificationIcon() {
-      return IconButton(
-          onPressed: () => Get.to(() => DashboardNotifications()),
-          icon: Icon(Icons.notifications_none, color: MainTheme.white, size: 28));
-    }
-    
-    return Visibility(
-      visible: _notificationsController.notifications.value != null && _notificationsController.notifications.value!.length != 0,
-      child: Badge(
-        badgeContent: Obx(() => Text("${_notificationsController.notifications.value?.where((notification) => notification.read != false)?.length}")),
-        position: BadgePosition.topEnd(top: 15, end: (Display.isCellphone()) ? -1 : -3),
-        child: _notificationIcon(),
-      ),
-      replacement: _notificationIcon(),
-    );
-  }
 
   _buildProfilePicture() {
     return SizedBox(

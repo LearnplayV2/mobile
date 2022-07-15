@@ -7,7 +7,7 @@ class NotificationService {
 
   static const String _webservice = "$apiUrl/user";
 
-  static Future<List<Notification>?> getNotifications() async {
+  static Future<List<Notification?>> getNotifications() async {
     try {
       var token = await Storage.get(StorageType.Token);
 
@@ -20,10 +20,11 @@ class NotificationService {
       
     } on DioError catch (err) {
       print(err);
+      return [];
     }
   }
 
-  static Future<List<Notification>?> toggleNotification({required int id}) async {
+  static Future<List<Notification?>> toggleNotification({required int id}) async {
     try {
       var token = await Storage.get(StorageType.Token);
 
@@ -36,6 +37,7 @@ class NotificationService {
       
     } on DioError catch (err) {
       print(err);
+      return [];
     }
   }
   
