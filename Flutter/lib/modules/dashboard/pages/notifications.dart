@@ -26,47 +26,65 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
         .setNotifications(await NotificationService.toggleNotification(id: id));
   }
 
+  _makeAllNotificationRead() async {
+    _notificationsController.setNotifications(await NotificationService.makeAllNotificationsRead());
+  }
+
   @override
   Widget build(BuildContext context) {
     return DashboardBar(
       child: WidgetList.DisplayCenter(context, children: [
         MainTheme.h1("Central de notificações", color: MainTheme.accent),
         SizedBox(height: 20),
-        _buildNotificationList()
+        Obx(() => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: (_notificationsController.notifications.value.isEmpty)
+                  ? [Container(child: Text("Você não possui notificações."))]
+                  : _buildNotificationList(),
+            )),
       ]),
     );
   }
 
   _buildNotificationList() {
-      return Obx(() => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: (_notificationsController.notifications.value.isEmpty) ? [Container(
-      child: Text("Você não possui notificações."))] : List.generate(
-                _notificationsController.notifications.value.length,
-                (index) => Container(
-                      color: MainTheme.lighter,
-                      padding: EdgeInsets.all(5),
-                      margin: EdgeInsets.only(bottom: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                              onPressed: () => _toggleNotification(
-                                  id: _notificationsController
-                                      .notifications.value[index]!.id!),
-                              icon: (_notificationsController
-                                      .notifications.value[index]!.read!)
-                                  ? FaIcon(FontAwesomeIcons.eye,
-                                      color: Colors.grey, size: 16)
-                                  : FaIcon(FontAwesomeIcons.eyeSlash,
-                                      color: Colors.grey, size: 16)),
-                          SizedBox(width: 16),
-                          Text(
-                              "${_notificationsController.notifications.value[index]!.title}",
-                              style: TextStyle(fontSize: 13)),
-                        ],
-                      ),
-                    )),
-          ));
+    return List.generate(
+        _notificationsController.notifications.value.length,
+        (index) => Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Visibility(
+              visible: _notificationsController.notifications.value.where((notification) => notification!.read == false).length > 0,
+              child: ElevatedButton(
+                onPressed: () => _makeAllNotificationRead(),
+                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(MainTheme.lighter)),
+                child: Text("Marcar todas como lida"),
+              ),
+            ),
+            Container(
+                  color: MainTheme.lighter,
+                  padding: EdgeInsets.all(5),
+                  margin: EdgeInsets.only(bottom: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                          onPressed: () => _toggleNotification(
+                              id: _notificationsController
+                                  .notifications.value[index]!.id!),
+                          icon: (_notificationsController
+                                  .notifications.value[index]!.read!)
+                              ? FaIcon(FontAwesomeIcons.eyeSlash,
+                                  color: Colors.grey, size: 16)
+                              : FaIcon(FontAwesomeIcons.eye,
+                                  color: Colors.grey, size: 16)),
+                      SizedBox(width: 16),
+                      Text(
+                          "${_notificationsController.notifications.value[index]!.title}",
+                          style: TextStyle(fontSize: 13)),
+                    ],
+                  ),
+                ),
+          ],
+        ));
   }
 }

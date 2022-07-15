@@ -40,5 +40,26 @@ class NotificationService {
       return [];
     }
   }
+
+  static Future<List<Notification?>> makeAllNotificationsRead() async {
+    try {
+
+      var token = await Storage.get(StorageType.Token);
+
+      final request = await Dio().put("$_webservice/notification/makeAllRead",  options: Options(headers: {"Authorization": "Bearer $token"}));
+
+      final res = request.data as List;
+      final response = res.map((notification) => Notification.fromJson(notification)).toList();
+
+      print(request.data);
+
+      return response;
+      
+    } on DioError catch(err) {
+      print(err);
+      return [];
+    }
+
+  }
   
 }

@@ -17,13 +17,13 @@ class NotificationCenter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx( () => notificationsController.notifications.value.where((notification) => notification!.read != false).isEmpty  ? _notificationIcon() : _buildNotificationBadge());
+    return Obx( () => notificationsController.notifications.value.where((notification) => notification!.read == false).isEmpty  ? _notificationIcon() : _buildNotificationBadge());
   }
 
   _buildNotificationBadge() {
     return Badge(
       badgeContent: Text(
-          "${notificationsController.notifications.value.where((notification) => notification!.read != false).length}",
+          "${notificationsController.notifications.value.where((notification) => notification!.read == false).length}",
           style: GoogleFonts.lato(color: Colors.white),
         ),
       position: BadgePosition.topEnd(

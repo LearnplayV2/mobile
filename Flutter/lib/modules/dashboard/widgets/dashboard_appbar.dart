@@ -79,7 +79,7 @@ class _DashboardBarState extends State<DashboardBar> {
                     ? null
                     : TopButton(scrollController: _scrollController),
                 appBar: AppBar(
-                  automaticallyImplyLeading: (Display.isDesktop()) ? true : false,
+                  automaticallyImplyLeading: false,
                   backgroundColor: MainTheme.secondary,
                   titleSpacing: 0,
                   title: Row(
@@ -107,7 +107,7 @@ class _DashboardBarState extends State<DashboardBar> {
                     ],
                   ),
                 )),
-            // _buildBackButtonForDesktop(),
+            _buildBackButtonForDesktop(),
             LoadContent()
           ],
         );
