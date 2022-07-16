@@ -1,7 +1,5 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'login_bloc/login_bloc.dart';
 
 class Store extends StatelessWidget {

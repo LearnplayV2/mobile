@@ -13,7 +13,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     SetUserLoggedIn event,
     Emitter emit
   ) {
-    emit(state.copyWith(user: event.user, profilePhoto: "${event.user?.uuid}?_=${DateTime.now().millisecondsSinceEpoch}"));
+    emit(state.copyWith(user: event.user, profilePhoto: event.user?.uuid));
   }
 
   void _setProfilePhoto(

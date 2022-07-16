@@ -52,7 +52,7 @@ class WidgetList {
       ),
       child: content ?? Text(text!, style: TextStyle(
         color: textColor ?? MainTheme.primary,
-        fontSize: (Platform.isWindows) ? 18 : 16,
+        fontSize: (Display.isDesktop()) ? 18 : 16,
       )),
     );
   }
