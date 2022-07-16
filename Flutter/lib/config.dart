@@ -61,7 +61,7 @@ class Display {
   }
   
   static bool isDesktop() {
-    return !isWeb() && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
+    return (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
   }
 
   static bool isCellphone() {

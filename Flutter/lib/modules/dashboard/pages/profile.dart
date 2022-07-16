@@ -66,23 +66,26 @@ class _DashboardProfileState extends State<DashboardProfile> {
                             uuid: userState.profilePhoto!))
                         : Image.asset("assets/default-avatar.jpg")),
                 (Display.isDesktop()) ? SizedBox(height: 12) : Container(),
-                ElevatedButton(
-                    onPressed: () {
-                      _loadingController.setIsLoading(RxBool(true));
-                      UserService().changeProfilePicture(context)
-                        .then((value) async => {
-                          _loadingController.setIsLoading(RxBool(false))
-                        });
-                    }, child: Container(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.photo_camera),
-                          SizedBox(width: 8),
-                          Text("Mudar imagem"),
-                        ],
-                      ),
-                    )),
+                Visibility(
+                  visible: !Display.isWeb(),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        _loadingController.setIsLoading(RxBool(true));
+                        UserService().changeProfilePicture(context)
+                          .then((value) async => {
+                            _loadingController.setIsLoading(RxBool(false))
+                          });
+                      }, child: Container(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.photo_camera),
+                            SizedBox(width: 8),
+                            Text("Mudar imagem"),
+                          ],
+                        ),
+                      )),
+                ),
                 SizedBox(height: 25),
                 Text("${userState.user?.name}", style: TextStyle(fontSize: 28)),
                 SizedBox(height: 14),

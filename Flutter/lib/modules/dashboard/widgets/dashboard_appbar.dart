@@ -132,7 +132,7 @@ class _DashboardBarState extends State<DashboardBar> {
 
   _buildBackButtonForDesktop() {
     return Visibility(
-      visible: Display.isDesktop() && Navigator.of(context).canPop(),
+      visible: Display.isDesktop() && !Display.isWeb() && Navigator.of(context).canPop(),
       child: Positioned(
           bottom: 15,
           left: 15,
