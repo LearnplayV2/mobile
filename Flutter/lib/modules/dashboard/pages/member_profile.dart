@@ -53,7 +53,7 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
         message: '${session.name} visitou seu perfil',
         description: json.encode(
           NotificationDescription(
-            type: NotificationTypeEnum.user_profile_visit,
+            type: NotificationTypeEnum.user_profile_visit.toString(),
             data: [session.name, session.uuid],
             body: 'visitou seu perfil'
           )

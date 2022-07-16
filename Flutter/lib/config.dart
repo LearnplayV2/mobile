@@ -40,7 +40,7 @@ class MainTheme {
   static final Color white = Color.fromARGB(255, 184, 184, 184);
   static final Color light = Color.fromRGBO(39, 39, 42, 1);
   static final Color lighter = Color.fromARGB(255, 49, 49, 53);
-  static final Color linkPrimary = Color.fromRGBO(77, 131, 155, 1);
+  static final Color linkPrimary = Color.fromARGB(255, 96, 155, 180);
 
   static Text normalText(String text) {
     return Text(text, style: TextStyle(color: Colors.white70));

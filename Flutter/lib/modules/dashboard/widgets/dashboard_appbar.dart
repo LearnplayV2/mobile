@@ -136,10 +136,11 @@ class _DashboardBarState extends State<DashboardBar> {
     return Visibility(
       visible: Display.isDesktop() && Navigator.of(context).canPop(),
       child: Positioned(
-          bottom: 0,
+          bottom: 15,
           left: 15,
           child: SizedBox(
             width: 30,
+            height: 30,
             child: FloatingActionButton(
               backgroundColor: MainTheme.lighter,
               onPressed: () => Navigator.of(context).maybePop(),

@@ -108,10 +108,8 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
                                     .notifications.value[index]!.id!);
                           }
                           if (NotificationData.descriptionHasBody(index: index)) {
-                            Get.to(() => DashboardNotificationId(), arguments: {
-                              "notification": _notificationsController
-                                  .notifications.value[index]!
-                            });
+                            Get.to(() => DashboardNotificationId(notification: _notificationsController
+                                  .notifications.value[index]!));
                           }
                         },
                         child: Text(

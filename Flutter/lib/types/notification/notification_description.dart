@@ -5,7 +5,7 @@ part 'notification_description.g.dart';
 
 @JsonSerializable()
 class NotificationDescription {
-  NotificationTypeEnum? type;
+  String? type;
   String? body;
   List<dynamic>? data;
 
