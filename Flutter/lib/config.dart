@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:universal_io/io.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,8 +56,12 @@ class MainTheme {
 }
 
 class Display {
+  static bool isWeb() {
+    return kIsWeb;
+  }
+  
   static bool isDesktop() {
-    return (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
+    return !isWeb() && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
   }
 
   static bool isCellphone() {
