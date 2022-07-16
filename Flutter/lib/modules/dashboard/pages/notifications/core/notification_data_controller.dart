@@ -14,5 +14,12 @@ class NotificationData {
       
       return details;
   }
+
+  static bool descriptionHasBody({required int index}) {
+      final description = json.decode(_notificationsController.notifications.value[index]!.description!);
+      final details = NotificationDescription.fromJson(description);
+      
+      return details.body!.length > 0;
+  }
   
 }

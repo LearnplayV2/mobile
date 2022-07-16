@@ -107,9 +107,7 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
                                 id: _notificationsController
                                     .notifications.value[index]!.id!);
                           }
-                          if (_notificationsController
-                                  .notifications.value[index]!.description !=
-                              null) {
+                          if (NotificationData.descriptionHasBody(index: index)) {
                             Get.to(() => DashboardNotificationId(), arguments: {
                               "notification": _notificationsController
                                   .notifications.value[index]!
