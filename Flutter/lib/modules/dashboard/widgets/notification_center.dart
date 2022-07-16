@@ -8,7 +8,7 @@ import 'package:learnplay/modules/core/notifications_controller.dart';
 import 'package:learnplay/services/socket/socket.dart';
 
 import '../../../config.dart';
-import '../pages/notifications.dart';
+import '../pages/notifications/notifications.dart';
 
 class NotificationCenter extends StatelessWidget {
 

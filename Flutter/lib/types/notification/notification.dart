@@ -1,12 +1,14 @@
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:learnplay/types/notification/notification_description.dart';
 
 part 'notification.g.dart';
 
 @JsonSerializable()
 class Notification {
   int? id;
-  String? userId, title, description;
+  String? userId, title;
+  String? description;
   bool? read;
 
   Notification({

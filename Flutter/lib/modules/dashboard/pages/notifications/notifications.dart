@@ -1,16 +1,23 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
+import 'package:learnplay/modules/dashboard/pages/member_profile.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/services/socket/socket.dart';
+import 'package:learnplay/types/notification/notification_description.dart';
 
-import '../../../services/user/notification_service.dart';
+import '../../../../services/user/notification_service.dart';
+import 'core/notification_data_controller.dart';
 
 class DashboardNotifications extends StatefulWidget {
   const DashboardNotifications({Key? key}) : super(key: key);

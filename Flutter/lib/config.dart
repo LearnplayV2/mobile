@@ -6,32 +6,30 @@ import 'package:google_fonts/google_fonts.dart';
 const String title = "LearnPlay";
 
 ThemeData theme() {
-
   _defaultTextStyle() => GoogleFonts.openSans(color: MainTheme.white);
-  
+
   return ThemeData(
-      iconTheme: IconThemeData(color: MainTheme.white),
-      primaryColor: MainTheme.secondary,
-      scaffoldBackgroundColor: MainTheme.primary,
-      textTheme: TextTheme(
-        headline1: _defaultTextStyle(),
-        headline2: _defaultTextStyle(),
-        bodyText2: _defaultTextStyle(),
-        subtitle1: _defaultTextStyle(),
-        bodyText1: _defaultTextStyle(),
-        button: _defaultTextStyle(),
-      ),
-      appBarTheme: AppBarTheme(
-        toolbarHeight: 85,
-        elevation: 0
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          primary: MainTheme.accent,
-          // splashFactory: NoSplash.splashFactory,
-          elevation: 0
-        )
-      ),
+    useMaterial3: true,
+    iconTheme: IconThemeData(color: MainTheme.white),
+    primaryColor: MainTheme.secondary,
+    scaffoldBackgroundColor: MainTheme.primary,
+    textTheme: TextTheme(
+      headline1: _defaultTextStyle(),
+      headline2: _defaultTextStyle(),
+      bodyText2: _defaultTextStyle(),
+      subtitle1: _defaultTextStyle(),
+      bodyText1: _defaultTextStyle(),
+      button: _defaultTextStyle(),
+    ),
+    appBarTheme: AppBarTheme(toolbarHeight: 85, elevation: 0),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(MainTheme.accent),
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+            // splashFactory: NoSplash.splashFactory,
+            elevation: MaterialStateProperty.all(0)
+        )),
   );
 }
 

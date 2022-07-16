@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:learnplay/services/api_config.dart';
 import 'package:learnplay/services/storage/storage.dart';
-import 'package:learnplay/types/notification.dart';
+import 'package:learnplay/types/notification/notification.dart';
 
 class NotificationService {
 

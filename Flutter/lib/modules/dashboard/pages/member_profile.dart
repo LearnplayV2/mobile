@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:asuka/asuka.dart';
@@ -19,6 +20,8 @@ import 'package:learnplay/modules/dashboard/widgets/skeleton_loading.dart';
 import 'package:learnplay/services/socket/notification.dart';
 import 'package:learnplay/services/storage/storage.dart';
 import 'package:learnplay/services/user/user_service.dart';
+import 'package:learnplay/types/notification/notification_description.dart';
+import 'package:learnplay/types/notification/notification_type_enum.dart';
 import 'package:learnplay/types/user.dart';
 
 import '../../../bloc/login_bloc/login_bloc.dart';
@@ -42,13 +45,19 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
     _getMemberProfileInfo();
   }
 
-  _notificationSocket() async {
+  _notificationVisitedProfile() async {
     final session = await Storage.getSavedSession();
     if(_member != null) {
-
       NotificationSocket.sendNotification( 
         uuid: _member!.uuid!, 
-        message: '${session.name} visitou seu perfil'
+        message: '${session.name} visitou seu perfil',
+        description: json.encode(
+          NotificationDescription(
+            type: NotificationTypeEnum.user_profile_visit,
+            data: [session.name, session.uuid],
+            body: 'visitou seu perfil'
+          )
+        )
       );
     }
   }
@@ -56,18 +65,18 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
   _checkIsYourProfile() async {
     final session = await Storage.getSavedSession();
     if (session.uuid == Get.arguments['uuid'])
-      Get.off(() => DashboardProfile());
+      return Get.off(() => DashboardProfile());
   }
 
   _getMemberProfileInfo() async {
     final response = await UserService.getMember(uuid: Get.arguments['uuid']);
     _member = response;
     setState(() {});
+    _notificationVisitedProfile();
   }
 
   @override
   Widget build(BuildContext context) {
-    _notificationSocket();
     return DashboardBar(
       child: WidgetList.DisplayCenter(context,
           children:

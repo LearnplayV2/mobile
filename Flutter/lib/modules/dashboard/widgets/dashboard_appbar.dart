@@ -15,7 +15,7 @@ import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/controller/loading_controller.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
 import 'package:learnplay/modules/dashboard/pages/index.dart';
-import 'package:learnplay/modules/dashboard/pages/notifications.dart';
+import 'package:learnplay/modules/dashboard/pages/notifications/notifications.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
 import 'package:learnplay/modules/dashboard/widgets/load_content.dart';
 import 'package:learnplay/modules/dashboard/widgets/main_menu.dart';
