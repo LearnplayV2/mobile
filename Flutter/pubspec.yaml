@@ -61,6 +61,7 @@ dependencies:
   google_fonts: ^3.0.1
   socket_io_client: ^2.0.0-beta.4-nullsafety.0
   logger: ^1.1.0
+  cached_network_image: ^3.2.1
   
 dependency_overrides:
   ffi: ">=2.0.0 <3.0.0"

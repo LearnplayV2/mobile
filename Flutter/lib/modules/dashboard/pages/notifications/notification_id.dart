@@ -1,17 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 
-class NotificationId extends StatefulWidget {
-  const NotificationId({Key? key}) : super(key: key);
+class DashboardNotificationId extends StatefulWidget {
+  const DashboardNotificationId({Key? key}) : super(key: key);
 
   @override
-  State<NotificationId> createState() => _NotificationIdState();
+  State<DashboardNotificationId> createState() => _DashboardNotificationIdState();
 }
 
-class _NotificationIdState extends State<NotificationId> {
+class _DashboardNotificationIdState extends State<DashboardNotificationId> {
+
+  @override
+  void initState() {
+    super.initState();
+    print(Get.arguments);
+  }
+  
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return DashboardBar(
+      child: Container(
+        child: Text("to do"),
+      ),
+    );
   }
 }

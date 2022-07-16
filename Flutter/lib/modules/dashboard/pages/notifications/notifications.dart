@@ -12,6 +12,7 @@ import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
 import 'package:learnplay/modules/dashboard/pages/member_profile.dart';
+import 'package:learnplay/modules/dashboard/pages/notifications/notification_id.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/services/socket/socket.dart';
 import 'package:learnplay/types/notification/notification_description.dart';
@@ -35,7 +36,8 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
   }
 
   _makeAllNotificationRead() async {
-    _notificationsController.setNotifications(await NotificationService.makeAllNotificationsRead());
+    _notificationsController
+        .setNotifications(await NotificationService.makeAllNotificationsRead());
   }
 
   @override
@@ -49,19 +51,25 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
               children: (_notificationsController.notifications.value.isEmpty)
                   ? [Container(child: Text("Você não possui notificações."))]
                   : [
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Visibility(
-                        visible: _notificationsController.notifications.value.where((notification) => notification!.read == false).length > 0,
-                        child: ElevatedButton(
-                          onPressed: () => _makeAllNotificationRead(),
-                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(MainTheme.lighter)),
-                          child: Text("Marcar todas como lida"),
+                      Container(
+                        alignment: Alignment.centerRight,
+                        child: Visibility(
+                          visible: _notificationsController.notifications.value
+                                  .where((notification) =>
+                                      notification!.read == false)
+                                  .length >
+                              0,
+                          child: ElevatedButton(
+                            onPressed: () => _makeAllNotificationRead(),
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    MainTheme.lighter)),
+                            child: Text("Marcar todas como lida"),
+                          ),
                         ),
                       ),
-                    ),
-                    ..._buildNotificationList()
-                  ],
+                      ..._buildNotificationList()
+                    ],
             )),
       ]),
     );
@@ -71,10 +79,9 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
     return List.generate(
         _notificationsController.notifications.value.length,
         (index) => Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            
-            Container(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
                   color: MainTheme.lighter,
                   padding: EdgeInsets.all(5),
                   margin: EdgeInsets.only(bottom: 5),
@@ -92,15 +99,31 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
                               : FaIcon(FontAwesomeIcons.eye,
                                   color: Colors.grey, size: 16)),
                       SizedBox(width: 16),
-                      Text(
-                          "${_notificationsController.notifications.value[index]!.title}",
-                          style: TextStyle(fontSize: 13)),
+                      GestureDetector(
+                        onTap: () {
+                          if (!_notificationsController
+                              .notifications.value[index]!.read!) {
+                            _toggleNotification(
+                                id: _notificationsController
+                                    .notifications.value[index]!.id!);
+                          }
+                          if (_notificationsController
+                                  .notifications.value[index]!.description !=
+                              null) {
+                            Get.to(() => DashboardNotificationId(), arguments: {
+                              "notification": _notificationsController
+                                  .notifications.value[index]!
+                            });
+                          }
+                        },
+                        child: Text(
+                            "${_notificationsController.notifications.value[index]!.title}",
+                            style: TextStyle(fontSize: 13)),
+                      ),
                     ],
                   ),
                 ),
-          ],
-        ));
+              ],
+            ));
   }
-
-
 }
