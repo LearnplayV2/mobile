@@ -10,6 +10,8 @@ class Notification {
   String? userId, title;
   String? description;
   bool? read;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   Notification({
     this.id,
@@ -17,6 +19,8 @@ class Notification {
     this.title,
     this.description,
     this.read,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Notification.fromJson(Map<String, dynamic> json) =>

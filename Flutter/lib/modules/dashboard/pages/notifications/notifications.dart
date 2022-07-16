@@ -16,6 +16,7 @@ import 'package:learnplay/modules/dashboard/pages/notifications/notification_id.
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/services/socket/socket.dart';
 import 'package:learnplay/types/notification/notification_description.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../services/user/notification_service.dart';
 import 'core/notification_data_controller.dart';
@@ -30,6 +31,7 @@ class DashboardNotifications extends StatefulWidget {
 class _DashboardNotificationsState extends State<DashboardNotifications> {
   final _notificationsController = Get.put(NotificationsController());
 
+
   _toggleNotification({required int id}) async {
     _notificationsController
         .setNotifications(await NotificationService.toggleNotification(id: id));
@@ -42,6 +44,9 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
 
   @override
   Widget build(BuildContext context) {
+
+    timeago.setLocaleMessages('pt_BR', timeago.PtBrShortMessages());
+    
     return DashboardBar(
       child: WidgetList.DisplayCenter(context, children: [
         MainTheme.h1("Central de notificações", color: MainTheme.accent),
@@ -86,36 +91,45 @@ class _DashboardNotificationsState extends State<DashboardNotifications> {
                   padding: EdgeInsets.all(5),
                   margin: EdgeInsets.only(bottom: 5),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                          onPressed: () => _toggleNotification(
-                              id: _notificationsController
-                                  .notifications.value[index]!.id!),
-                          icon: (_notificationsController
-                                  .notifications.value[index]!.read!)
-                              ? FaIcon(FontAwesomeIcons.eyeSlash,
-                                  color: Colors.grey, size: 16)
-                              : FaIcon(FontAwesomeIcons.eye,
-                                  color: Colors.grey, size: 16)),
-                      SizedBox(width: 16),
-                      GestureDetector(
-                        onTap: () {
-                          if (!_notificationsController
-                              .notifications.value[index]!.read!) {
-                            _toggleNotification(
-                                id: _notificationsController
-                                    .notifications.value[index]!.id!);
-                          }
-                          if (NotificationData.descriptionHasBody(index: index)) {
-                            Get.to(() => DashboardNotificationId(notification: _notificationsController
-                                  .notifications.value[index]!));
-                          }
-                        },
-                        child: Text(
-                            "${_notificationsController.notifications.value[index]!.title}",
-                            style: TextStyle(fontSize: 13)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                              onPressed: () => _toggleNotification(
+                                  id: _notificationsController
+                                      .notifications.value[index]!.id!),
+                              icon: (_notificationsController
+                                      .notifications.value[index]!.read!)
+                                  ? FaIcon(FontAwesomeIcons.eyeSlash,
+                                      color: Colors.grey, size: 16)
+                                  : FaIcon(FontAwesomeIcons.eye,
+                                      color: Colors.grey, size: 16)),
+                          SizedBox(width: 16),
+                          GestureDetector(
+                            onTap: () {
+                              if (!_notificationsController
+                                  .notifications.value[index]!.read!) {
+                                _toggleNotification(
+                                    id: _notificationsController
+                                        .notifications.value[index]!.id!);
+                              }
+                              if (NotificationData.descriptionHasBody(
+                                  index: index)) {
+                                Get.to(() => DashboardNotificationId(
+                                    notification: _notificationsController
+                                        .notifications.value[index]!));
+                              }
+                            },
+                            child: Text(
+                                "${_notificationsController.notifications.value[index]!.title}",
+                                style: TextStyle(fontSize: 13)),
+                          ),
+                        ],
                       ),
+                      Text("${timeago.format(_notificationsController.notifications.value[index]!.createdAt!, locale: 'pt_BR')}",
+                          style: TextStyle(fontSize: 12, color: Colors.grey)),
                     ],
                   ),
                 ),
