@@ -75,7 +75,7 @@ class UserService {
       //! upload image from desktop
       if (Display.isDesktop()) {
         final file = await ImageController.uploadByDesktop();
-        if(file == null) return; 
+        if (file == null) return;
         final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
             data: file);
@@ -85,11 +85,11 @@ class UserService {
       if (Display.isCellphone()) {
         final file = await ImageController.uploadByCellphone();
         if (file == null) return;
-          final response = await Dio().post("$_webservice/set-profile-picture",
+        final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
             data: file);
 
-          print(response.data);
+        print(response.data);
       }
 
       AsukaSnackbar.success("Foto de perfil alterada!").show();
@@ -103,31 +103,29 @@ class UserService {
     try {
       var token = await Storage.get(StorageType.Token);
 
-      final request = await Dio().get("$_webservice/members",  options: Options(headers: {"Authorization": "Bearer $token"}));
+      final request = await Dio().get("$_webservice/members",
+          options: Options(headers: {"Authorization": "Bearer $token"}));
 
       final res = request.data as List;
       final response = res.map((user) => User.fromJson(user)).toList();
 
       return response;
-
-    } on DioError catch(err) {
+    } on DioError catch (err) {
       print(err);
     }
   }
 
   static Future<User?> getMember({required String uuid}) async {
     try {
-
       var token = await Storage.get(StorageType.Token);
-      
-      final request = await Dio().get("$_webservice/profile/${uuid}",  options: Options(headers: {"Authorization": "Bearer $token"}));
+
+      final request = await Dio().get("$_webservice/profile/${uuid}",
+          options: Options(headers: {"Authorization": "Bearer $token"}));
       final response = User.fromJson(request.data);
 
       return response;
-      
-    } on DioError catch(err) {
+    } on DioError catch (err) {
       print(err);
     }
   }
-  
 }

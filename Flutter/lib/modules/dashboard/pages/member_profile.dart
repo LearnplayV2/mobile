@@ -120,7 +120,7 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
                 color: MainTheme.lighter,
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 child: Text(
-                    "Ativo desde ${DateFormat('dd/MM/yyyy, kk:mm').format(DateTime.parse(_member!.createdAt ?? DateTime.now().toString()))}"))
+                    "Ativo desde ${DateFormat('dd/MM/yyyy, kk:mm').format(DateTime.parse(_member!.createdAt.toString() ?? DateTime.now().toString()))}"))
           ],
         ),
       )
