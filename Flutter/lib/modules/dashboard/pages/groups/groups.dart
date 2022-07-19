@@ -6,6 +6,7 @@ import 'package:learnplay/modules/dashboard/widgets/pagination.dart';
 import 'package:learnplay/modules/dashboard/widgets/skeleton_loading.dart';
 import 'package:learnplay/services/groups/groups_service.dart';
 import 'package:learnplay/types/groups/groups.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class DashboardGroups extends StatefulWidget {
   const DashboardGroups({Key? key}) : super(key: key);
@@ -30,6 +31,8 @@ class _DashboardGroupsState extends State<DashboardGroups> {
 
   @override
   Widget build(BuildContext context) {
+    timeago.setLocaleMessages('pt_BR', timeago.PtBrShortMessages());
+
     return DashboardBar(
         child: WidgetList.DisplayCenter(context, children: [
       MainTheme.h1("Grupos de estudo", color: MainTheme.accent),
@@ -75,7 +78,13 @@ class _DashboardGroupsState extends State<DashboardGroups> {
                     color: MainTheme.lighter,
                     child: ListTile(
                       onTap: () {},
-                      title: Text(_myGroups!.groups![index].title!),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(_myGroups!.groups![index].title!, style: TextStyle(fontSize: 13)),
+                          Text("${timeago.format(DateTime.parse(_myGroups!.groups![index].createdAt!), locale: 'pt_BR')}", style: TextStyle(fontSize: 12))
+                        ],
+                      ),
                     ),
                   )),
         ),
