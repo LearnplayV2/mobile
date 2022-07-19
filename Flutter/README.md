@@ -1,16 +1,20 @@
-# learnplay
+# Learn Play
 
-A new Flutter project.
+how to run
 
-## Getting Started
+make sure the server is running and get the port
 
-This project is a starting point for a Flutter application.
+- connect the device and run this command on cmd:
+`adb devices`
 
-A few resources to get you started if this is your first Flutter project:
+and then copy YOUR_DEVICE_ID and paste in code below and run:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+adb -s YOUR_DEVICE_ID reverse tcp:3000 tcp:3000     // LOCALHOST CONNECTION
+adb -s YOUR_DEVICE_ID reverse tcp:3001 tcp:3001     // SOCKET CONNECTION
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Now, you can run your application on VSCODE 'Run & Debug' tab or just running this command inside the app folder:
+```
+flutter run -d YOUR_DEVICE_ID
+```

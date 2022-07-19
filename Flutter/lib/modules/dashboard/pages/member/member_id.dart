@@ -23,7 +23,7 @@ import 'package:learnplay/types/notification/notification_description.dart';
 import 'package:learnplay/types/notification/notification_type_enum.dart';
 import 'package:learnplay/types/user.dart';
 
-import '../../../bloc/login_bloc/login_bloc.dart';
+import '../../../../bloc/login_bloc/login_bloc.dart';
 
 class DashboardMemberProfile extends StatefulWidget {
   const DashboardMemberProfile({Key? key}) : super(key: key);
@@ -33,7 +33,6 @@ class DashboardMemberProfile extends StatefulWidget {
 }
 
 class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
-  LoadingController _loadingController = Get.put(LoadingController());
 
   User? _member = null;
 

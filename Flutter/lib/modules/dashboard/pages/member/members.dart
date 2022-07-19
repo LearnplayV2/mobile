@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
-import 'package:learnplay/modules/dashboard/pages/member_profile.dart';
+import 'package:learnplay/modules/dashboard/pages/member/member_id.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/modules/dashboard/widgets/skeleton_loading.dart';

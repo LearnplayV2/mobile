@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:learnplay/config.dart';
-import 'package:learnplay/modules/dashboard/pages/members.dart';
+import 'package:learnplay/modules/dashboard/pages/groups/groups.dart';
+import 'package:learnplay/modules/dashboard/pages/member/members.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({
@@ -21,7 +22,7 @@ class MainMenu extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _buildLink(text: "Grupos de estudos"),
+              _buildLink(text: "Grupos de estudos", onPressed: () => Get.to(() => DashboardGroups())),
               _buildLink(text: "Aulas"),
               _buildLink(text: "Artigos"),
               _buildLink(text: "Materiais"),

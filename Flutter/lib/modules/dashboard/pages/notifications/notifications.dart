@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
-import 'package:learnplay/modules/dashboard/pages/member_profile.dart';
+import 'package:learnplay/modules/dashboard/pages/member/member_id.dart';
 import 'package:learnplay/modules/dashboard/pages/notifications/notification_id.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/services/socket/socket.dart';
