@@ -12,8 +12,6 @@ class GroupService {
 
       final request = await Dio().get("$_webservice/my/page/${page}", options: Options(headers: {"Authorization": "Bearer $token"}));
 
-      print(request.data);
-
       final res = request.data;
       final GroupsType response = GroupsType.fromJson(res);
 

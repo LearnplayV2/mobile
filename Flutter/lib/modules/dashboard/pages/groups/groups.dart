@@ -83,9 +83,8 @@ class _DashboardGroupsState extends State<DashboardGroups> {
         ),
         SizedBox(height: 15),
         Pagination(
-          pageBuilder: (page) async {
-            _fetchMyGroups(page: page);
-          },
+          arrows: true,
+          pageBuilder: (page) async => _fetchMyGroups(page: page),
           totalPages: _myGroups!.totalPages!
         )
       ],
