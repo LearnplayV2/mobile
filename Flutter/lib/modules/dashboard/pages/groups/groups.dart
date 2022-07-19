@@ -100,6 +100,9 @@ class _DashboardGroupsState extends State<DashboardGroups> {
   }
 
   _listMyGroups() {
+
+    TextEditingController _searchController = TextEditingController();
+    
     if (_myGroups!.groups!.isEmpty)
       return Container(
         child: Text("Você ainda não criou grupos de estudo!"),
@@ -109,6 +112,11 @@ class _DashboardGroupsState extends State<DashboardGroups> {
       children: [
         Form(
           child: TextField(
+            controller: _searchController,
+            onSubmitted: (data) {
+              //todo: search groups
+              print(_searchController.text);
+            },
             decoration: InputDecoration(
               prefixIconColor: Colors.white,
               label: Text("Procurar título"),
