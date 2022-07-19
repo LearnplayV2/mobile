@@ -46,6 +46,42 @@ class _DashboardGroupsState extends State<DashboardGroups> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {}, 
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.amber[800]
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.search),
+                      SizedBox(width: 8),
+                      Text("Procurar grupos"),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {}, 
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.add),
+                      SizedBox(width: 8),
+                      Text("Criar grupo"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 25),
           MainTheme.h1("Grupos que você gerencia:",
               color: Colors.amber, size: 16),
           SizedBox(height: 14),
@@ -71,6 +107,16 @@ class _DashboardGroupsState extends State<DashboardGroups> {
 
     return Column(
       children: [
+        Form(
+          child: TextField(
+            decoration: InputDecoration(
+              prefixIconColor: Colors.white,
+              label: Text("Procurar título"),
+              labelStyle: TextStyle(color: Colors.white60, fontSize: 18),
+              prefixIcon: Icon(Icons.search, color: Colors.white60, size: 20)
+            ),
+          ),
+        ),
         Column(
           children: List.generate(
               _myGroups!.groups!.length,
