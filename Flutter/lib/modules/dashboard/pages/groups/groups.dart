@@ -24,7 +24,6 @@ class _DashboardGroupsState extends State<DashboardGroups> {
   }
 
   _fetchMyGroups({int? page = 1}) async {
-    setState(() { _myGroups = null; });
     final response = await GroupService.myGroups(page: page);
     setState(() { _myGroups = response; });
   }
