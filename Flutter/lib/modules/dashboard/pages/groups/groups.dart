@@ -24,10 +24,9 @@ class _DashboardGroupsState extends State<DashboardGroups> {
   }
 
   _fetchMyGroups({int? page = 1}) async {
+    setState(() { _myGroups = null; });
     final response = await GroupService.myGroups(page: page);
-    setState(() {
-      _myGroups = response;
-    });
+    setState(() { _myGroups = response; });
   }
 
   @override
@@ -83,7 +82,6 @@ class _DashboardGroupsState extends State<DashboardGroups> {
         ),
         SizedBox(height: 15),
         Pagination(
-          arrows: true,
           pageBuilder: (page) async => _fetchMyGroups(page: page),
           totalPages: _myGroups!.totalPages!
         )
