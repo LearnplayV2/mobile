@@ -15,7 +15,6 @@ class DashboardGroups extends StatefulWidget {
 }
 
 class _DashboardGroupsState extends State<DashboardGroups> {
-  bool _isLoading = true;
   GroupsType? _myGroups = null;
 
   @override
@@ -25,9 +24,8 @@ class _DashboardGroupsState extends State<DashboardGroups> {
   }
 
   _fetchMyGroups({int? page = 1}) async {
-    setState(() { _isLoading = true; });
     final response = await GroupService.myGroups(page: page);
-    setState(() { _isLoading = false; _myGroups = response; });
+    setState(() { _myGroups = response; });
   }
 
   @override
@@ -48,7 +46,7 @@ class _DashboardGroupsState extends State<DashboardGroups> {
           MainTheme.h1("Grupos que você gerencia:",
               color: Colors.amber, size: 16),
           SizedBox(height: 14),
-          (_isLoading)
+          (_myGroups == null)
               ? Container(
                   child: Column(
                   children: List.generate(
