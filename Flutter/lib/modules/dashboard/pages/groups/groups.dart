@@ -105,7 +105,7 @@ class _DashboardGroupsState extends State<DashboardGroups> {
     
     if (_myGroups!.groups!.isEmpty)
       return Container(
-        child: Text("Você ainda não criou grupos de estudo!"),
+        child: Text("Nenhum grupo encontrado"),
       );
 
     return Column(
