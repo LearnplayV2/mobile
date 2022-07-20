@@ -24,8 +24,8 @@ class _DashboardGroupsState extends State<DashboardGroups> {
     _fetchMyGroups();
   }
 
-  _fetchMyGroups({int? page = 1}) async {
-    final response = await GroupService.myGroups(page: page);
+  _fetchMyGroups({int? page = 1, String? filter}) async {
+    final response = await GroupService.myGroups(page: page, filter: filter);
     setState(() { _myGroups = response; });
   }
 
@@ -116,6 +116,7 @@ class _DashboardGroupsState extends State<DashboardGroups> {
             onSubmitted: (data) {
               //todo: search groups
               print(_searchController.text);
+              _fetchMyGroups(filter: _searchController.text);
             },
             decoration: InputDecoration(
               prefixIconColor: Colors.white,

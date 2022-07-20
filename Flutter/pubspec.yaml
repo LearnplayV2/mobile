@@ -65,6 +65,7 @@ dependencies:
   timeago: ^3.2.2
   universal_io: ^2.0.4
   permission_handler: ^10.0.0
+  connectivity_plus: ^2.3.6
   
 dependency_overrides:
   ffi: ">=2.0.0 <3.0.0"

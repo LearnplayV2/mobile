@@ -6,11 +6,13 @@ import 'package:learnplay/types/groups/groups.dart';
 class GroupService {
   static const String _webservice = "$apiUrl/group";
 
-  static Future<GroupsType?> myGroups({int? page = 1}) async {
+  static Future<GroupsType?> myGroups({int? page = 1, String? filter}) async {
     try {
       var token = await Storage.get(StorageType.Token);
-
-      final request = await Dio().get("$_webservice/my/page/${page}", options: Options(headers: {"Authorization": "Bearer $token"}));
+      final service = "$_webservice/my/page/${page}/${filter ?? ''}";
+      print(service);
+      
+      final request = await Dio().get(service, options: Options(headers: {"Authorization": "Bearer $token"}));
 
       final res = request.data;
       final GroupsType response = GroupsType.fromJson(res);

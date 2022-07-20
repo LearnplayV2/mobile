@@ -130,6 +130,7 @@ class _DashboardBarState extends State<DashboardBar> {
     });
   }
 
+
   _buildBackButtonForDesktop() {
     return Visibility(
       visible: Display.isDesktop() && !Display.isWeb() && Navigator.of(context).canPop(),
