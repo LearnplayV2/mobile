@@ -114,8 +114,6 @@ class _DashboardGroupsState extends State<DashboardGroups> {
           child: TextField(
             controller: _searchController,
             onSubmitted: (data) {
-              //todo: search groups
-              print(_searchController.text);
               _fetchMyGroups(filter: _searchController.text);
             },
             decoration: InputDecoration(
