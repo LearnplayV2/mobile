@@ -17,7 +17,7 @@ class WidgetList {
                 ),
                 color: MainTheme.secondary,
                 width: (Display.isDesktop())
-                    ? MediaQuery.of(context).size.width * .6
+                    ? MediaQuery.of(context).size.width * .7
                     : MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
                 padding: EdgeInsets.all(15),
