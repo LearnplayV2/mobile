@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
@@ -31,7 +32,7 @@ class _DashboardIndexState extends State<DashboardIndex> {
           Visibility(
               visible: state.user != null,
               child: Container(
-                  child: Text(
+                  child: SelectableText(
                       "${state.user!.name}, você é membro faz ${timeago.format(DateTime.parse(state.user!.createdAt!), locale: 'pt_BR')}!"))),
           Text("resume to do...")
         ]);

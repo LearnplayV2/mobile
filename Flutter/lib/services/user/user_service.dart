@@ -24,7 +24,7 @@ class UserService {
 
       Storage.save(StorageType.Token, value: response.token!);
 
-      print(await Storage.get(StorageType.Token));
+      debugPrint(await Storage.get(StorageType.Token));
     } on DioError catch (err) {
       throw Exception(err.response);
     }
@@ -34,7 +34,7 @@ class UserService {
     try {
       var token = await Storage.get(StorageType.Token);
 
-      print("CHECKING USER DATA.............");
+      debugPrint("CHECKING USER DATA.............");
 
       final response = await Dio().get("$_webservice/refresh",
           options: Options(headers: {"Authorization": "Bearer $token"}));

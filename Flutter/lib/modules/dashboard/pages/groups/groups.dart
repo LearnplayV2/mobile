@@ -89,7 +89,7 @@ class _DashboardGroupsState extends State<DashboardGroups> {
               ? Container(
                   child: Column(
                   children: List.generate(
-                      3,
+                      5,
                       (index) => SkeletonLoading(
                           w: MediaQuery.of(context).size.width, h: 50)),
                 ))
@@ -118,7 +118,7 @@ class _DashboardGroupsState extends State<DashboardGroups> {
             },
             decoration: InputDecoration(
               prefixIconColor: Colors.white,
-              label: Text("Procurar título"),
+              label: Text("Buscar título"),
               labelStyle: TextStyle(color: Colors.white60, fontSize: 18),
               prefixIcon: Icon(Icons.search, color: Colors.white60, size: 20)
             ),

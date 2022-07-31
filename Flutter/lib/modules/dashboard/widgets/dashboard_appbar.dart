@@ -100,11 +100,11 @@ class _DashboardBarState extends State<DashboardBar> {
                     SizedBox(width: 15)
                   ],
                 ),
-                body: SingleChildScrollView(
-                  controller: _scrollController,
-                  child: Column(
-                    children: [MainMenu(), widget.child],
-                  ),
+                body: Column(
+                  children: [
+                    MainMenu(), 
+                    widget.child
+                  ],
                 )),
             _buildBackButtonForDesktop(),
             LoadContent()

@@ -43,21 +43,24 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MainBar(
-        child: SingleChildScrollView(
-      child: Column(
-        children: [
-          _buildPresentation(),
-          SizedBox(height: 50),
-          _buildLogin(),
-          SizedBox(height: 50)
-        ],
-      ),
-    ));
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+          Expanded(
+            flex: (Display.isDesktop()) ? 3 : 2,
+            child: _buildPresentation(),
+          ),
+          Expanded(
+            flex: 2,
+            child: _buildLogin(),
+          )
+        ]));
   }
 
   _buildPresentation() {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(height: 22),
           Container(
@@ -73,7 +76,7 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          SizedBox(height: 22),
+          SizedBox(height: 30),
           Image.asset(
             'assets/img1.png',
             fit: BoxFit.contain,
@@ -81,12 +84,11 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: 30),
           Container(
-              margin: (Display.isDesktop())
-                  ? EdgeInsets.symmetric(horizontal: 8)
-                  : EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
+              margin: EdgeInsets.symmetric(horizontal: 30),
+              child: SelectableText(
                   "Somos uma comunidade que compartilha conhecimento: acesse grupos de estudo, compartilhe artigos e aulas.\nNão fique de fora!",
-                  style: TextStyle(fontSize: (Display.isDesktop()) ? 22 : 14)))
+                  style: TextStyle(fontSize: (Display.isDesktop()) ? 22 : 14))),
+          SizedBox(height: 30),
         ],
       ),
     );
@@ -99,63 +101,70 @@ class _HomeState extends State<Home> {
         AuthController.userCheck(context, isGuestPage: true);
       }).catchError((err) {
         var error = RequestError.decode(err.toString());
-        AsukaSnackbar.alert("${error.response?.message ?? 'Ocorreu um erro inesperado'}").show();
+        AsukaSnackbar.alert(
+                "${error.response?.message ?? 'Ocorreu um erro inesperado'}")
+            .show();
       });
     }
   }
 
   _buildLogin() {
-    return Container(
-      color: MainTheme.secondary,
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 25),
-      margin: (Display.isDesktop())
-          ? EdgeInsets.symmetric(horizontal: 20)
-          : EdgeInsets.symmetric(horizontal: 15),
-      child: Column(children: [
-        MainTheme.h1("Fazer Login"),
-        SizedBox(height: 30),
-        Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              WidgetList.Input(
-                hintText: "E-mail",
-                controller: email,
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Preencha o champo e-mail";
-                  } else if (!EmailValidator.validate(value)) {
-                    return "Preencha um e-mail válido!";
-                  }
-                  return null;
-                },
+    return SingleChildScrollView(
+      child: LayoutBuilder(builder: (context, BoxConstraints constraints) {
+        return Container(
+          color: MainTheme.secondary,
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 25),
+          width: (constraints.maxWidth > 900) ? 600 : constraints.maxWidth,
+          margin: (Display.isDesktop())
+              ? EdgeInsets.symmetric(horizontal: 20)
+              : EdgeInsets.symmetric(horizontal: 15),
+          child: Column(children: [
+            MainTheme.h1("Fazer Login"),
+            SizedBox(height: 30),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  WidgetList.Input(
+                    hintText: "E-mail",
+                    controller: email,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Preencha o champo e-mail";
+                      } else if (!EmailValidator.validate(value)) {
+                        return "Preencha um e-mail válido!";
+                      }
+                      return null;
+                    },
+                  ),
+                  WidgetList.Input(
+                      hintText: "********",
+                      obscureText: true,
+                      onFieldSubmitted: (value) => _submitLogin(),
+                      controller: password,
+                      validator: (value) {
+                        if (value!.length < 8) {
+                          return "A senha deve ter no mínimo 8 caracteres!";
+                        }
+                        return null;
+                      }),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                      width: double.infinity,
+                      child: WidgetList.Button(
+                        onPressed: () => _submitLogin(),
+                        text: "Entrar",
+                      )),
+                ],
               ),
-              WidgetList.Input(
-                  hintText: "********",
-                  obscureText: true,
-                  onFieldSubmitted: (value) => _submitLogin(),
-                  controller: password,
-                  validator: (value) {
-                    if (value!.length < 8) {
-                      return "A senha deve ter no mínimo 8 caracteres!";
-                    }
-                    return null;
-                  }),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                  width: double.infinity,
-                  child: WidgetList.Button(
-                    onPressed: () => _submitLogin(),
-                    text: "Entrar",
-                  )),
-            ],
-          ),
-        )
-      ]),
+            )
+          ]),
+        );
+      }),
     );
   }
 }
