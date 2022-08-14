@@ -67,6 +67,7 @@ dependencies:
   permission_handler: ^10.0.0
   connectivity_plus: ^2.3.6
   page_transition: ^2.0.9
+  dropdown_formfield: ^0.1.4
   
 dependency_overrides:
   ffi: ">=2.0.0 <3.0.0"

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:learnplay/components/basic_widgets.dart';
 import 'package:learnplay/config.dart';
+import 'package:learnplay/modules/dashboard/pages/groups/new.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
 import 'package:learnplay/modules/dashboard/widgets/pagination.dart';
 import 'package:learnplay/modules/dashboard/widgets/skeleton_loading.dart';
@@ -66,7 +68,7 @@ class _DashboardGroupsState extends State<DashboardGroups> {
                 ),
                 SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () {}, 
+                  onPressed: () => Get.to(() => NewGroup()), 
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red
                   ),
