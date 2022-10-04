@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/components/basic_widgets.dart';
+import 'package:learnplay/components/imageBase64.dart';
 import 'package:learnplay/components/main_appbar.dart';
 import 'package:learnplay/controller/loading_controller.dart';
 import 'package:learnplay/modules/core/notifications_controller.dart';
@@ -176,15 +179,15 @@ class _DashboardBarState extends State<DashboardBar> {
               primary: Colors.transparent,
               padding: EdgeInsets.zero,
               shadowColor: Colors.transparent),
-          child: ProfilePicture(
-            name: "${state.user?.name ?? ''}",
-            radius: 31,
-            img:
-                "${UserService.getProfilePicture(uuid: state.profilePhoto ?? 'assets/default-avatar.jpg')}",
-            fontsize: 15,
-          ),
+          child: (state.user?.userItems?.photo != null)  
+            ? Container(
+              child: imageFromBase64String(state.user!.userItems!.photo!),
+            )
+            : Text(state.user!.name![0]) 
         );
       }),
     );
   }
+
+  
 }

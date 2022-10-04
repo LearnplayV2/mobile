@@ -12,8 +12,19 @@
                 "--no-sound-null-safety",
             ]
         },
+                {
+            "name": "Web HTML",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--no-sound-null-safety",
+                "--web-port", "80",
+                "--web-renderer", "html",
+                "-d", "chrome"
+            ]
+        },
         {
-            "name": "Web",
+            "name": "Web Canvas",
             "request": "launch",
             "type": "dart",
             "args": [
