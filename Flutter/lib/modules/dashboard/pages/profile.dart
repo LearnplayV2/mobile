@@ -1,14 +1,10 @@
-import 'dart:async';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/components/basic_widgets.dart';
+import 'package:learnplay/components/imageBase64.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/controller/loading_controller.dart';
 import 'package:learnplay/modules/dashboard/widgets/dashboard_appbar.dart';
@@ -61,9 +57,8 @@ class _DashboardProfileState extends State<DashboardProfile> {
                     height: (Display.isCellphone()) 
                     ? MediaQuery.of(context).size.height * .2
                     : MediaQuery.of(context).size.height * .2,
-                    child: (userState.user != null)
-                        ? Image.network(UserService.getProfilePicture(
-                            uuid: userState.profilePhoto!))
+                    child: (userState.user?.userItems != null)
+                        ? imageFromBase64String(userState.user!.userItems!.photo!)
                         : Image.asset("assets/default-avatar.jpg")),
                 (Display.isDesktop()) ? SizedBox(height: 12) : Container(),
                 Visibility(

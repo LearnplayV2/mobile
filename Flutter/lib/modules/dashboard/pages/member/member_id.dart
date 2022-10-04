@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
 import 'package:learnplay/components/basic_widgets.dart';
+import 'package:learnplay/components/imageBase64.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/controller/loading_controller.dart';
 import 'package:learnplay/modules/dashboard/pages/profile.dart';
@@ -107,9 +108,8 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
                 height: (Display.isCellphone())
                     ? MediaQuery.of(context).size.height * .2
                     : MediaQuery.of(context).size.height * .2,
-                child: (_member != null)
-                    ? Image.network(
-                        UserService.getProfilePicture(uuid: _member!.uuid!))
+                child: (_member?.userItems?.photo != null)
+                    ? imageFromBase64String(_member!.userItems!.photo!)
                     : Image.asset("assets/default-avatar.jpg")),
             (Display.isDesktop()) ? SizedBox(height: 12) : Container(),
             SizedBox(height: 25),

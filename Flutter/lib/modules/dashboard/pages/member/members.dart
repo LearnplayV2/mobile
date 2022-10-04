@@ -11,6 +11,8 @@ import 'package:learnplay/services/user/user_service.dart';
 import 'package:learnplay/types/user.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../components/imageBase64.dart';
+
 class DashboardMembers extends StatefulWidget {
   const DashboardMembers({Key? key}) : super(key: key);
 
@@ -67,8 +69,9 @@ class _DashboardMembersState extends State<DashboardMembers> {
                       SizedBox(
                           width: 100,
                           height: 100,
-                          child: Image.network(UserService.getProfilePicture(
-                              uuid: "${_members![index].uuid!}"))),
+                          child: (_members?[index]?.userItems?.photo != null)
+                      ? imageFromBase64String(_members![index].userItems!.photo!)
+                      : Image.asset("assets/default-avatar.jpg")),
                       SizedBox(width: 15),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
