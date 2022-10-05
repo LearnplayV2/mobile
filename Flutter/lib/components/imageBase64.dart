@@ -12,11 +12,4 @@ class FileConverter {
     return base64.decode(_img);
   }
 
-  static String fileToBase64({required String path}) {
-    final file = File(path);
-    List<int> fileInByte = file.readAsBytesSync();
-    String fileInBase64 = base64Encode(fileInByte);
-    return fileInBase64;
-  }
-
 }

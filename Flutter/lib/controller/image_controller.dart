@@ -23,9 +23,6 @@ class ImageController {
         await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      // FormData formData = FormData.fromMap({
-      //   "file": await MultipartFile.fromFile(image.path, contentType: new MediaType("image", "png")),
-      // });
       return image;
     }
   }

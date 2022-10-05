@@ -90,9 +90,14 @@ class UserService {
         final file = await ImageController.uploadByDesktop();
         if (file == null) return;
 
+        final fileByte = await file.readAsBytes();
+        String _img = base64Encode(fileByte);
+
         final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
-            data: file);
+            data: {
+              "base64File": _img
+            });
       }
 
       //! upload image from mobile device
@@ -100,7 +105,7 @@ class UserService {
         final file = await ImageController.uploadByCellphone();
         if (file == null) return;
 
-        String _img = FileConverter.fileToBase64(path: file.path);
+        String _img = base64Encode(file.readAsBytesSync());
 
         final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
