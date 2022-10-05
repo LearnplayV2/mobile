@@ -12,4 +12,10 @@ class FileConverter {
     return base64.decode(_img);
   }
 
+  static String uint8ListToBase64(Uint8List uint8list) {
+    String base64String = base64Encode(uint8list);
+    String header = "data:image/png;base64,";
+    return header + base64String;
+  }
+
 }

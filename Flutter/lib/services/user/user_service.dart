@@ -91,7 +91,7 @@ class UserService {
         if (file == null) return;
 
         final fileByte = await file.readAsBytes();
-        String _img = base64Encode(fileByte);
+        var _img = FileConverter.uint8ListToBase64(fileByte);
 
         final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
@@ -105,7 +105,7 @@ class UserService {
         final file = await ImageController.uploadByCellphone();
         if (file == null) return;
 
-        String _img = base64Encode(file.readAsBytesSync());
+        var _img = FileConverter.uint8ListToBase64(file.readAsBytesSync());
 
         final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
