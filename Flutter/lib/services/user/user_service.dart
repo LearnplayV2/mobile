@@ -30,6 +30,21 @@ class UserService {
     }
   }
 
+  static Future<UserItems?> getUserItems() async {
+    try {
+      var token = await Storage.get(StorageType.Token);
+      debugPrint("Getting user items");
+
+      final request = await Dio().get("$_webservice/user-items", options: Options(headers: {"Authorization": "Bearer $token"}));
+      final response = UserItems.fromJson(request.data);
+
+      return response;
+
+    } on DioError catch (err) {
+      throw Exception(err.response);
+    }
+  }
+
   static Future refresh() async {
     try {
       var token = await Storage.get(StorageType.Token);

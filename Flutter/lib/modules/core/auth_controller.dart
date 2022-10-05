@@ -27,7 +27,10 @@ class AuthController {
       }
     } else {
       var user = await UserService.checkUserLoggedIn(context);
+      var userItems = await UserService.getUserItems();
+
       if (user != null) {
+        user.userItems = userItems;
         AuthController.setUserLoggedIn(context, user: user);
         Storage.save(StorageType.Token, value: user.token!);
       } else {
