@@ -11,7 +11,5 @@ class SetUserLoggedIn extends LoginEvent {
 }
 
 class SetProfilePhoto extends LoginEvent {
-  final String? profilePhoto;
-
-  SetProfilePhoto({this.profilePhoto});
+  SetProfilePhoto();
 }

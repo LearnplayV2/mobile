@@ -109,7 +109,7 @@ class _DashboardMemberProfileState extends State<DashboardMemberProfile> {
                     ? MediaQuery.of(context).size.height * .2
                     : MediaQuery.of(context).size.height * .2,
                 child: (_member?.userItems?.photo != null)
-                    ? imageFromBase64String(_member!.userItems!.photo!)
+                    ? Image.memory(FileConverter.imageFromBase64String(_member!.userItems!.photo!))
                     : Image.asset("assets/default-avatar.jpg")),
             (Display.isDesktop()) ? SizedBox(height: 12) : Container(),
             SizedBox(height: 25),

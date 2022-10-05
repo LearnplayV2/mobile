@@ -57,8 +57,8 @@ class _DashboardProfileState extends State<DashboardProfile> {
                     height: (Display.isCellphone()) 
                     ? MediaQuery.of(context).size.height * .2
                     : MediaQuery.of(context).size.height * .2,
-                    child: (userState.user?.userItems != null)
-                        ? imageFromBase64String(userState.user!.userItems!.photo!)
+                    child: (userState.user?.userItems?.photo != null)
+                        ? Image.memory(FileConverter.imageFromBase64String(userState.user!.userItems!.photo!))
                         : Image.asset("assets/default-avatar.jpg")),
                 (Display.isDesktop()) ? SizedBox(height: 12) : Container(),
                 Visibility(

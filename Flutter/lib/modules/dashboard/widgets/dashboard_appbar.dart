@@ -181,7 +181,7 @@ class _DashboardBarState extends State<DashboardBar> {
               shadowColor: Colors.transparent),
           child: (state.user?.userItems?.photo != null)  
             ? Container(
-              child: imageFromBase64String(state.user!.userItems!.photo!),
+              child: Image.memory(FileConverter.imageFromBase64String(state.user!.userItems!.photo!)),
             )
             : Text(state.user!.name![0]) 
         );

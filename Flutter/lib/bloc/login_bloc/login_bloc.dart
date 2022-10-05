@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_event.dart';
 import 'package:learnplay/bloc/login_bloc/login_bloc_state.dart';
+import 'package:learnplay/services/user/user_service.dart';
+import 'package:learnplay/types/user.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   
@@ -13,14 +15,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     SetUserLoggedIn event,
     Emitter emit
   ) {
-    emit(state.copyWith(user: event.user, profilePhoto: event.user?.uuid));
+    emit(state.copyWith(user: event.user));
   }
 
   void _setProfilePhoto(
     SetProfilePhoto event,
     Emitter emit
-  ) {
-    emit(state.copyWith(profilePhoto: "${state.profilePhoto}?_=${DateTime.now().millisecondsSinceEpoch}"));
+  ) async {
+    try {
+
+      final data = await UserService.getUserItems();
+      var user = state.user;
+      user?.userItems = data;
+
+      emit(state.copyWith(user: user));
+
+    } catch(err) {
+      print(err);
+    }
+    
   }
   
 }

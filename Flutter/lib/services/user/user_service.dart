@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:asuka/asuka.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get_connect/http/src/_http/_io/_file_decoder_io.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:learnplay/components/imageBase64.dart';
 import 'package:learnplay/config.dart';
 import 'package:learnplay/controller/image_controller.dart';
 import 'package:learnplay/services/api_config.dart';
@@ -87,6 +89,7 @@ class UserService {
       if (Display.isDesktop()) {
         final file = await ImageController.uploadByDesktop();
         if (file == null) return;
+
         final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
             data: file);
@@ -96,9 +99,14 @@ class UserService {
       if (Display.isCellphone()) {
         final file = await ImageController.uploadByCellphone();
         if (file == null) return;
+
+        String _img = FileConverter.fileToBase64(path: file.path);
+
         final response = await Dio().post("$_webservice/set-profile-picture",
             options: Options(headers: {"Authorization": "Bearer $token"}),
-            data: file);
+            data: {
+              "base64File": _img
+            });
 
         print(response.data);
       }

@@ -8,29 +8,25 @@ import 'dart:io';
 import '../config.dart';
 
 class ImageController {
-  static Future<FormData?> uploadByCellphone() async {
+  static Future<File?> uploadByCellphone() async {
     final _picker = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
 
     if (_picker != null) {
       final image = File(_picker.path); 
-      FormData formData = FormData.fromMap({
-        "file": await MultipartFile.fromFile(image.path, contentType: new MediaType("image", "png")),
-      });
-      return formData;
-     
+      return image;
     }
   }
 
-  static Future<FormData?> uploadByDesktop() async {
+  static Future<PickedFile?> uploadByDesktop() async {
     final ImagePickerPlatform _picker = ImagePickerPlatform.instance;
     final PickedFile? image =
         await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      FormData formData = FormData.fromMap({
-        "file": await MultipartFile.fromFile(image.path, contentType: new MediaType("image", "png")),
-      });
-      return formData;
+      // FormData formData = FormData.fromMap({
+      //   "file": await MultipartFile.fromFile(image.path, contentType: new MediaType("image", "png")),
+      // });
+      return image;
     }
   }
 }

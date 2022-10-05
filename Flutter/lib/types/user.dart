@@ -49,6 +49,7 @@ class User {
     }
     return data;
   }
+
 }
 
 class UserItems {

@@ -70,7 +70,7 @@ class _DashboardMembersState extends State<DashboardMembers> {
                           width: 100,
                           height: 100,
                           child: (_members?[index]?.userItems?.photo != null)
-                      ? imageFromBase64String(_members![index].userItems!.photo!)
+                      ? Image.memory(FileConverter.imageFromBase64String(_members![index]!.userItems!.photo!))
                       : Image.asset("assets/default-avatar.jpg")),
                       SizedBox(width: 15),
                       Column(
